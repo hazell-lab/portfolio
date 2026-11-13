@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>HAZIM AQIL | Software Developer &amp; Software Engineering Student</title>
+  <title>HAZIM AQIL | Front-End Developer &amp; Software Engineering Student</title>
 
   <meta name="description"
         content="Portfolio of HAZIM AQIL, a Software Engineering student in Malaysia building React/TypeScript web apps and C#/.NET Windows apps. Available for internship from 11 January to 14 May 2027." />
@@ -12,34 +12,58 @@
 
   <!-- link preview when shared on linkedin, whatsapp, etc -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="HAZIM AQIL | Software Developer" />
+  <meta property="og:title" content="HAZIM AQIL | Front-End Developer" />
   <meta property="og:description" content="Software Engineering student building React/TypeScript web apps and C#/.NET Windows apps. Available for internship from 11 January to 14 May 2027." />
   <meta property="og:url" content="https://hazimaqil-portfolio.netlify.app/" />
   <meta property="og:image" content="https://hazimaqil-portfolio.netlify.app/assets/images/profile.jpg" />
-  <meta name="theme-color" content="#0b1120" />
+  <meta name="theme-color" content="#f2f0ea" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- set the theme before anything paints, so there is no flash -->
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem("theme"); } catch (e) {}
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+      document.documentElement.classList.add("js");
+    })();
+  </script>
 
   <!-- google fonts, needs internet -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400..700&display=swap"
         rel="stylesheet" />
-
-  <!-- font awesome icons, needs internet -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        referrerpolicy="no-referrer" />
 
   <!-- small icon in the browser tab -->
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
 
-  <!-- my own stylesheet, loaded last so it overrides the ones above -->
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- the hero portrait is above the fold, so fetch it early -->
+  <link rel="preload" as="image" href="assets/images/profile.webp" type="image/webp" />
+
+  <link rel="stylesheet" href="css/style.css?v=2" />
 </head>
 
 <body>
 
+  <!-- icon sprite, each icon is used with <svg><use href="#i-name"></use></svg> -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8.5 7H17v8.5"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 4v15m0 0-6-6m6 6 6-6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 20V5m0 0-6 6m6-6 6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></symbol>
+    <symbol id="i-windows" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></symbol>
+  </svg>
+
   <!-- skip link, only shows when you press tab -->
-  <a class="skip-link" href="#home">Skip to main content</a>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- =========================
        header and navigation
@@ -47,146 +71,143 @@
   <header class="site-header" id="site-header">
     <div class="container nav-wrapper">
 
-      <!-- logo, your name -->
-      <a href="#home" class="logo">
-        <span class="logo-mark">&lt;/&gt;</span>
-        <span class="logo-text">HAZIM AQIL</span>
+      <a href="#home" class="logo" aria-label="Hazim Aqil, back to top">
+        <span class="logo-mark" aria-hidden="true">H<em>a</em></span>
+        <span class="logo-text">Hazim Aqil</span>
       </a>
-
-      <!-- hamburger button, only shows on small screens -->
-      <button class="nav-toggle" id="nav-toggle" type="button"
-              aria-label="Open navigation menu"
-              aria-expanded="false"
-              aria-controls="primary-nav">
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-      </button>
 
       <!-- menu links -->
       <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
         <ul class="nav-list">
-          <li><a class="nav-link active" href="#home">Home</a></li>
-          <li><a class="nav-link" href="#about">About</a></li>
-          <li><a class="nav-link" href="#skills">Skills</a></li>
-          <li><a class="nav-link" href="#projects">Projects</a></li>
-          <li><a class="nav-link" href="#education">Education</a></li>
-          <li><a class="nav-link" href="#experience">Experience</a></li>
-          <li><a class="nav-link" href="#contact">Contact</a></li>
+          <li><a class="nav-link active" href="#home"><span class="nav-num">00</span>Home</a></li>
+          <li><a class="nav-link" href="#about"><span class="nav-num">01</span>About</a></li>
+          <li><a class="nav-link" href="#skills"><span class="nav-num">02</span>Skills</a></li>
+          <li><a class="nav-link" href="#projects"><span class="nav-num">03</span>Projects</a></li>
+          <li><a class="nav-link" href="#education"><span class="nav-num">04</span>Education</a></li>
+          <li><a class="nav-link" href="#experience"><span class="nav-num">05</span>Experience</a></li>
+          <li><a class="nav-link" href="#contact"><span class="nav-num">06</span>Contact</a></li>
           <li class="nav-list-cta">
-            <!-- resume button, the pdf goes in assets/resume/ and is called resume.pdf -->
+            <!-- resume button, the pdf is in assets/resume/resume.pdf -->
             <a class="btn btn-primary btn-sm" href="assets/resume/resume.pdf" download>
-              <i class="fa-solid fa-download" aria-hidden="true"></i> Resume
+              Resume <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
             </a>
           </li>
         </ul>
       </nav>
 
+      <div class="nav-tools">
+        <!-- theme switch, the choice is saved in localstorage -->
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 3.75a8.25 8.25 0 0 1 0 16.5z" fill="currentColor" />
+          </svg>
+          <span class="theme-label" aria-hidden="true">Dark</span>
+        </button>
+
+        <!-- hamburger button, only shows on small screens -->
+        <button class="nav-toggle" id="nav-toggle" type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="primary-nav">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+
     </div>
   </header>
 
-  <main>
+  <main id="main">
 
     <!-- =========================
          hero
     ========================== -->
-    <section class="hero" id="home">
-      <div class="container hero-grid">
+    <section class="hero" id="home" aria-labelledby="hero-name">
+      <div class="container">
 
-        <!-- left side, the text -->
-        <div class="hero-text">
-          <p class="hero-greeting">
-            <span class="wave" role="img" aria-label="waving hand">👋</span> Hi, I'm
-          </p>
+        <!-- top line of small facts, like the masthead of a magazine -->
+        <ul class="hero-meta">
+          <li class="hero-meta-item"><span class="meta-key">Portfolio</span> Edition <span id="edition-year">2026</span></li>
+          <li class="hero-meta-item"><span class="meta-key">Based in</span> Malaysia</li>
+          <li class="hero-meta-item"><span class="meta-key">Studying</span> Software Engineering, GMI</li>
+          <li class="hero-meta-item available-badge">
+            <span class="meta-key"><span class="dot" aria-hidden="true"></span>Available for internship</span>
+            11 Jan – 14 May 2027
+          </li>
+        </ul>
 
-          <h1 class="hero-name">HAZIM AQIL</h1>
+        <!-- the name is the main visual of the page -->
+        <h1 class="hero-name" id="hero-name">
+          <span class="hero-line"><span class="hero-word">Hazim</span></span>
+          <span class="hero-line hero-line-2">
+            <span class="hero-portrait" aria-hidden="true">
+              <img src="assets/images/profile.webp" alt="" width="640" height="749" fetchpriority="high" />
+            </span>
+            <span class="hero-word"><em>Aqil</em></span>
+          </span>
+        </h1>
 
-          <h2 class="hero-role">
-            <span id="typed-role">Software Developer</span><span class="typed-cursor" aria-hidden="true">|</span>
-          </h2>
-
-          <p class="hero-subtitle">Software Engineering Student</p>
-
-          <p class="hero-intro">
-            I build web apps with React, TypeScript and JavaScript, and native Windows tools
-            with C# and .NET. My latest projects include <strong>Streamix</strong>, a tested
-            TypeScript streaming UI, and <strong>ClipNest</strong>, a clipboard manager for
-            Windows 11. I'm a Software Engineering student at German-Malaysian Institute,
-            looking for a software engineering internship.
-          </p>
-
-          <!-- the three main buttons -->
-          <div class="hero-buttons">
-            <a class="btn btn-primary" href="#projects">
-              <i class="fa-solid fa-diagram-project" aria-hidden="true"></i> View Projects
-            </a>
-            <a class="btn btn-outline" href="#contact">
-              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Contact Me
-            </a>
-            <!-- download my resume pdf -->
-            <a class="btn btn-ghost" href="assets/resume/resume.pdf" download>
-              <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> Download Resume
-            </a>
+        <div class="hero-grid">
+          <div class="hero-lede">
+            <!-- rotating role, screen readers get the plain title instead -->
+            <h2 class="hero-role">
+              <span class="visually-hidden">Front-End Developer</span>
+              <span class="role-static" aria-hidden="true">Aspiring</span>
+              <span class="role-rotator" aria-hidden="true"><span id="typed-role">Front-End Developer</span></span>
+            </h2>
+            <p class="hero-subtitle">Software Engineering Student</p>
           </div>
 
-          <!-- social links -->
-          <ul class="social-list">
-            <li>
-              <a class="social-link" href="https://github.com/hazell-lab/" target="_blank" rel="noopener" aria-label="GitHub profile">
-                <i class="fa-brands fa-github" aria-hidden="true"></i>
-              </a>
-            </li>
-            <li>
-              <a class="social-link" href="https://www.linkedin.com/in/mdhazimaqil/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-                <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-              </a>
-            </li>
-            <li>
-              <a class="social-link" href="mailto:mdhazim.aqil@gmail.com" aria-label="Send me an email">
-                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-              </a>
-            </li>
-          </ul>
+          <div class="hero-text">
+            <p class="hero-intro">
+              I build web apps with React, TypeScript and JavaScript, and native Windows tools
+              with C# and .NET. My latest projects include <strong>Streamix</strong>, a tested
+              TypeScript streaming UI, and <strong>ClipNest</strong>, a clipboard manager for
+              Windows 11. I'm a Software Engineering student at German-Malaysian Institute,
+              looking for a front-end development internship.
+            </p>
 
-          <!-- small status badge -->
-          <p class="available-badge">
-            <span class="dot" aria-hidden="true"></span>
-            Available for internship &middot; 11 January – 14 May 2027
-          </p>
+            <div class="hero-buttons">
+              <a class="btn btn-primary" href="#projects">
+                View Projects <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"></use></svg>
+              </a>
+              <a class="btn btn-outline" href="#contact">Contact Me</a>
+              <a class="link-arrow" href="assets/resume/resume.pdf" download>
+                Download Resume <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+              </a>
+            </div>
+
+            <ul class="social-list">
+              <li>
+                <a class="social-link" href="https://github.com/hazell-lab/" target="_blank" rel="noopener" aria-label="GitHub profile">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a class="social-link" href="https://www.linkedin.com/in/mdhazimaqil/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+                  <svg class="icon" aria-hidden="true"><use href="#i-linkedin"></use></svg>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a class="social-link" href="mailto:mdhazim.aqil@gmail.com" aria-label="Send me an email">
+                  <svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg>
+                  <span>Email</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <!-- right side, a fake code editor window made with html and css -->
-        <div class="hero-visual">
-          <div class="code-window" aria-hidden="true">
-            <div class="code-window-bar">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
-              <span class="code-window-title">developer.js</span>
-            </div>
-            <pre class="code-window-body"><code><span class="c-purple">const</span> <span class="c-blue">developer</span> = {
-  <span class="c-cyan">name</span>: <span class="c-green">"HAZIM AQIL"</span>,
-  <span class="c-cyan">role</span>: <span class="c-green">"Software Developer"</span>,
-  <span class="c-cyan">education</span>: <span class="c-green">"Software Engineering"</span>,
-  <span class="c-cyan">location</span>: <span class="c-green">"Malaysia"</span>,
-  <span class="c-cyan">skills</span>: [<span class="c-green">"React"</span>, <span class="c-green">"TypeScript"</span>, <span class="c-green">"C#"</span>],
-  <span class="c-cyan">availability</span>: <span class="c-green">"11 Jan 2027 – 14 May 2027"</span>
-};
-
-<span class="c-purple">function</span> <span class="c-yellow">sayHello</span>() {
-  <span class="c-blue">console</span>.log(<span class="c-green">`Hi, I am ${developer.name}`</span>);
-}</code></pre>
-          </div>
-
-          <!-- small card floating over the window -->
-          <div class="float-card">
-            <i class="fa-solid fa-code" aria-hidden="true"></i>
-            <div>
-              <strong>9 projects shipped</strong>
-              <span>Web · Windows · Mobile</span>
-            </div>
-          </div>
-        </div>
+        <!-- small ledger of real numbers from the projects below -->
+        <dl class="hero-stats">
+          <div><dt>Projects shipped</dt><dd>09</dd><span>Web · Windows · Mobile</span></div>
+          <div><dt>Automated tests written</dt><dd>159</dd><span>34 Vitest + 125 .NET</span></div>
+          <div><dt>Live demos</dt><dd>05</dd><span>Netlify &amp; GitHub Pages</span></div>
+          <div><dt>Diploma CGPA</dt><dd>3.70</dd><span>German-Malaysian Institute</span></div>
+        </dl>
 
       </div>
     </section>
@@ -194,28 +215,33 @@
     <!-- =========================
          about
     ========================== -->
-    <section class="section" id="about">
+    <section class="section section-about" id="about" aria-labelledby="about-title">
       <div class="container">
 
-        <header class="section-header reveal">
+        <header class="section-head reveal">
+          <span class="section-num">01</span>
           <p class="section-eyebrow">About me</p>
-          <h2 class="section-title">A student developer who enjoys building for the web</h2>
-          <p class="section-subtitle">
-            Here is a short introduction about who I am, what I am studying, and what I am looking for.
-          </p>
+          <h2 class="section-title visually-hidden" id="about-title">A student developer who enjoys building for the web</h2>
         </header>
 
         <div class="about-grid">
 
-          <!-- my profile photo, the file is in assets/images/ -->
-          <div class="about-image reveal">
-            <img src="assets/images/profile.jpg"
-                 alt="Profile photo of HAZIM AQIL"
-                 width="480" height="480" />
-          </div>
+          <p class="about-lede reveal">
+            A student developer who enjoys building for the web &mdash; turning ideas into
+            <em>clean, responsive interfaces</em> that work well on every screen size.
+          </p>
+
+          <figure class="about-figure reveal" data-delay="80">
+            <div class="about-image">
+              <img src="assets/images/profile.webp"
+                   alt="Profile photo of HAZIM AQIL"
+                   width="640" height="749" loading="lazy" />
+            </div>
+            <figcaption><span class="meta-key">Fig. 01</span> Hazim Aqil &mdash; Malaysia</figcaption>
+          </figure>
 
           <div class="about-content reveal" data-delay="120">
-            <h3 class="about-heading">Hello! I'm HAZIM AQIL 👋</h3>
+            <h3 class="about-heading">Hello! I'm Hazim Aqil.</h3>
 
             <p>
               I am a <strong>Software Engineering student</strong> at
@@ -236,48 +262,32 @@
               I am early in my career, and what I bring is consistency, curiosity and a real
               willingness to learn from a team. I am looking for an
               <strong>18-week internship (11 January – 14 May 2027)</strong> where I can
-              contribute as a software engineering intern.
+              contribute as a front-end developer intern.
             </p>
+          </div>
 
-            <!-- quick facts, each one backed by a real project -->
-            <ul class="about-list">
-              <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Built a strict-TypeScript React app with 34 automated tests</li>
-              <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Shipped 3 native Windows 11 apps in C# / .NET / WPF</li>
-              <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Consumed REST APIs (TMDB, Open-Meteo) with caching and error handling</li>
-              <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Wrote a Node.js API with a Firestore database for a team app</li>
-              <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 8 open-source projects on GitHub, 5 with live demos</li>
-              <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> CGPA 3.70 in Diploma in Software Engineering</li>
-            </ul>
+          <!-- quick facts, each one backed by a real project -->
+          <div class="about-proof reveal" data-delay="160">
+            <h3 class="mini-title">In practice</h3>
+            <ol class="about-list">
+              <li>Built a strict-TypeScript React app with 34 automated tests</li>
+              <li>Shipped 3 native Windows 11 apps in C# / .NET / WPF</li>
+              <li>Consumed REST APIs (TMDB, Open-Meteo) with caching and error handling</li>
+              <li>Wrote a Node.js API with a Firestore database for a team app</li>
+              <li>8 open-source projects on GitHub, 5 with live demos</li>
+              <li>CGPA 3.70 in Diploma in Software Engineering</li>
+            </ol>
           </div>
 
         </div>
 
-        <!-- four small info cards -->
-        <div class="info-cards">
-          <article class="info-card reveal">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-            <h4>Location</h4>
-            <p>Malaysia</p>
-          </article>
-
-          <article class="info-card reveal" data-delay="100">
-            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-            <h4>Education</h4>
-            <p>Diploma in Software Engineering</p>
-          </article>
-
-          <article class="info-card reveal" data-delay="200">
-            <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
-            <h4>Focus</h4>
-            <p>Web &amp; Desktop Apps</p>
-          </article>
-
-          <article class="info-card reveal" data-delay="300">
-            <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-            <h4>Internship Availability</h4>
-            <p>11 January – 14 May 2027</p>
-          </article>
-        </div>
+        <!-- key facts, set as a ruled table instead of cards -->
+        <dl class="info-cards reveal">
+          <div class="info-card"><dt>Location</dt><dd>Malaysia</dd></div>
+          <div class="info-card"><dt>Education</dt><dd>Diploma in Software Engineering</dd></div>
+          <div class="info-card"><dt>Focus</dt><dd>Front-End Development</dd></div>
+          <div class="info-card"><dt>Internship Availability</dt><dd>11 January – 14 May 2027</dd></div>
+        </dl>
 
       </div>
     </section>
@@ -285,87 +295,54 @@
     <!-- =========================
          skills
     ========================== -->
-    <section class="section section-alt" id="skills">
+    <section class="section section-skills" id="skills" aria-labelledby="skills-title">
       <div class="container">
 
-        <header class="section-header reveal">
+        <header class="section-head reveal">
+          <span class="section-num">02</span>
           <p class="section-eyebrow">Skills</p>
-          <h2 class="section-title">Technologies I work with</h2>
-          <p class="section-subtitle">
-            The tools I have used to build and ship real projects.
-          </p>
+          <h2 class="section-title" id="skills-title">Technologies <em>I work with</em></h2>
+          <p class="section-subtitle">The tools I have used to build and ship real projects.</p>
         </header>
 
-        <div class="skills-grid">
+        <div class="skills-table">
 
-          <article class="skill-card reveal">
-            <div class="skill-card-head">
-              <span class="skill-icon"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></span>
-              <h3>Frontend</h3>
-            </div>
+          <div class="skill-row reveal">
+            <h3 class="skill-cat"><span class="skill-index">A</span>Frontend</h3>
             <ul class="skill-list">
-              <li class="chip"><i class="fa-brands fa-react" aria-hidden="true"></i> React</li>
-              <li class="chip"><i class="fa-solid fa-code" aria-hidden="true"></i> TypeScript</li>
-              <li class="chip"><i class="fa-brands fa-js" aria-hidden="true"></i> JavaScript</li>
-              <li class="chip"><i class="fa-brands fa-html5" aria-hidden="true"></i> HTML5</li>
-              <li class="chip"><i class="fa-brands fa-css3-alt" aria-hidden="true"></i> CSS3</li>
-              <li class="chip"><i class="fa-solid fa-wind" aria-hidden="true"></i> Tailwind CSS</li>
-              <li class="chip"><i class="fa-solid fa-route" aria-hidden="true"></i> React Router</li>
-              <li class="chip"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> Responsive Design</li>
+              <li>React</li><li>TypeScript</li><li>JavaScript</li><li>HTML5</li><li>CSS3</li>
+              <li>Tailwind CSS</li><li>React Router</li><li>Responsive Design</li>
             </ul>
-          </article>
+          </div>
 
-          <article class="skill-card reveal" data-delay="100">
-            <div class="skill-card-head">
-              <span class="skill-icon"><i class="fa-brands fa-windows" aria-hidden="true"></i></span>
-              <h3>Desktop</h3>
-            </div>
+          <div class="skill-row reveal">
+            <h3 class="skill-cat"><span class="skill-index">B</span>Desktop</h3>
             <ul class="skill-list">
-              <li class="chip"><i class="fa-solid fa-hashtag" aria-hidden="true"></i> C#</li>
-              <li class="chip"><i class="fa-solid fa-cube" aria-hidden="true"></i> .NET 8 / 10</li>
-              <li class="chip"><i class="fa-solid fa-window-maximize" aria-hidden="true"></i> WPF</li>
-              <li class="chip"><i class="fa-solid fa-database" aria-hidden="true"></i> SQLite</li>
-              <li class="chip"><i class="fa-solid fa-microchip" aria-hidden="true"></i> Win32 API</li>
+              <li>C#</li><li>.NET 8 / 10</li><li>WPF</li><li>SQLite</li><li>Win32 API</li>
             </ul>
-          </article>
+          </div>
 
-          <article class="skill-card reveal" data-delay="200">
-            <div class="skill-card-head">
-              <span class="skill-icon"><i class="fa-solid fa-server" aria-hidden="true"></i></span>
-              <h3>Mobile &amp; Backend</h3>
-            </div>
+          <div class="skill-row reveal">
+            <h3 class="skill-cat"><span class="skill-index">C</span>Mobile &amp; Backend</h3>
             <ul class="skill-list">
-              <li class="chip"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i> Flutter</li>
-              <li class="chip"><i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> Dart</li>
-              <li class="chip"><i class="fa-brands fa-node-js" aria-hidden="true"></i> Node.js</li>
-              <li class="chip"><i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i> REST APIs</li>
-              <li class="chip"><i class="fa-solid fa-fire" aria-hidden="true"></i> Firebase Auth</li>
-              <li class="chip"><i class="fa-solid fa-database" aria-hidden="true"></i> Firestore</li>
+              <li>Flutter</li><li>Dart</li><li>Node.js</li><li>REST APIs</li><li>Firebase Auth</li><li>Firestore</li>
             </ul>
-          </article>
+          </div>
 
-          <article class="skill-card reveal" data-delay="300">
-            <div class="skill-card-head">
-              <span class="skill-icon"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></span>
-              <h3>Testing &amp; Tools</h3>
-            </div>
+          <div class="skill-row reveal">
+            <h3 class="skill-cat"><span class="skill-index">D</span>Testing &amp; Tools</h3>
             <ul class="skill-list">
-              <li class="chip"><i class="fa-solid fa-vial" aria-hidden="true"></i> Vitest</li>
-              <li class="chip"><i class="fa-solid fa-flask" aria-hidden="true"></i> React Testing Library</li>
-              <li class="chip"><i class="fa-solid fa-check-double" aria-hidden="true"></i> .NET unit testing</li>
-              <li class="chip"><i class="fa-solid fa-broom" aria-hidden="true"></i> ESLint</li>
-              <li class="chip"><i class="fa-brands fa-git-alt" aria-hidden="true"></i> Git</li>
-              <li class="chip"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</li>
-              <li class="chip"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Postman</li>
-              <li class="chip"><i class="fa-brands fa-figma" aria-hidden="true"></i> Figma</li>
+              <li>Vitest</li><li>React Testing Library</li><li>.NET unit testing</li><li>ESLint</li>
+              <li>Git</li><li>GitHub</li><li>Postman</li><li>Figma</li>
             </ul>
-          </article>
+          </div>
 
         </div>
 
         <!-- languages from coursework, kept small on purpose -->
         <p class="skills-coursework reveal">
-          <strong>Also covered in coursework:</strong> Java · Python · C++ · PHP · Kotlin · MySQL
+          <span class="meta-key">Also covered in coursework</span>
+          Java · Python · C++ · PHP · Kotlin · MySQL
         </p>
 
       </div>
@@ -374,19 +351,20 @@
     <!-- =========================
          projects
     ========================== -->
-    <section class="section" id="projects">
+    <section class="section section-projects" id="projects" aria-labelledby="projects-title">
       <div class="container">
 
-        <header class="section-header reveal">
-          <p class="section-eyebrow">Projects</p>
-          <h2 class="section-title">Projects I have built and shipped</h2>
+        <header class="section-head section-head-split reveal">
+          <span class="section-num">03</span>
+          <p class="section-eyebrow">Selected work</p>
+          <h2 class="section-title" id="projects-title">Projects I have <em>built and shipped</em></h2>
           <p class="section-subtitle">
             Web apps, native Windows desktop tools and a team mobile app. Source code for every
             personal project is on GitHub.
           </p>
         </header>
 
-        <!-- filter buttons, script.js shows or hides cards by data-category -->
+        <!-- filter buttons, script.js shows or hides projects by data-category -->
         <div class="project-filters reveal" role="group" aria-label="Filter projects">
           <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All <span>9</span></button>
           <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">Web <span>5</span></button>
@@ -394,86 +372,77 @@
           <button class="filter-btn" type="button" data-filter="mobile" aria-pressed="false">Mobile <span>1</span></button>
         </div>
 
-        <div class="projects-grid">
+        <!-- featured case studies, each with its own composition -->
+        <div class="project-group projects-featured">
 
-          <article class="project-card reveal" data-category="web">
-            <div class="project-image">
-              <span class="project-badge">Featured</span>
+          <article class="project-card project-feature feature-a reveal" data-category="web">
+            <a class="project-media" href="https://streamix-hazim.netlify.app" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/streamix.webp" alt="Streamix home page with trending movie rows"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">Streamix — Streaming Web App</h3>
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>01</span> Web app <span class="project-badge">Featured</span></p>
+              <h3 class="project-title">Streamix <span class="project-kind">Streaming Web App</span></h3>
               <p class="project-description">
                 A Netflix-inspired streaming UI with live TMDB data: debounced search with shareable URLs, genre filters and sorting stored in the URL, detail pages with cast and a focus-trapped trailer modal, and a My List synced across tabs. Written in strict TypeScript, code-split with React.lazy, and covered by 34 Vitest + React Testing Library tests.
               </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">React</li>
-                <li class="chip chip-sm">TypeScript</li>
-                <li class="chip chip-sm">Vite</li>
-                <li class="chip chip-sm">Tailwind CSS</li>
-                <li class="chip chip-sm">React Router</li>
-                <li class="chip chip-sm">Vitest</li>
-                <li class="chip chip-sm">TMDB API</li>
+              <p class="project-figure"><strong>34</strong> automated tests</p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind CSS</li><li>React Router</li><li>Vitest</li><li>TMDB API</li>
               </ul>
               <div class="project-actions">
                 <a class="btn btn-primary btn-sm" href="https://streamix-hazim.netlify.app" target="_blank" rel="noopener">
-                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                  Live Demo <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
                 </a>
-                <a class="btn btn-outline btn-sm" href="https://github.com/hazell-lab/Streamix" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                <a class="link-arrow" href="https://github.com/hazell-lab/Streamix" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
                 </a>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="web" data-delay="100">
-            <div class="project-image">
+          <article class="project-card project-feature feature-b reveal" data-category="web">
+            <a class="project-media" href="https://hazell-lab.github.io/WaveMusic/" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/wavemusic.webp" alt="WaveMusic home page with playlists and bottom player"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">WaveMusic — Music Streaming App</h3>
+                   width="1600" height="829" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>02</span> Web app</p>
+              <h3 class="project-title">WaveMusic <span class="project-kind">Music Streaming App</span></h3>
               <p class="project-description">
                 A full music streaming front end with no framework and no dependencies: home feed, live search, library, playlist, album and artist pages, a queue, a Now Playing overlay and a working player with shuffle, repeat, a draggable progress bar and lock-screen Media Session info. A Node script checks 90 app behaviours.
               </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">HTML</li>
-                <li class="chip chip-sm">CSS</li>
-                <li class="chip chip-sm">JavaScript</li>
-                <li class="chip chip-sm">Media Session API</li>
-                <li class="chip chip-sm">localStorage</li>
+              <p class="project-figure"><strong>90</strong> behaviours checked</p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Media Session API</li><li>localStorage</li>
               </ul>
               <div class="project-actions">
                 <a class="btn btn-primary btn-sm" href="https://hazell-lab.github.io/WaveMusic/" target="_blank" rel="noopener">
-                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                  Live Demo <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
                 </a>
-                <a class="btn btn-outline btn-sm" href="https://github.com/hazell-lab/WaveMusic" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                <a class="link-arrow" href="https://github.com/hazell-lab/WaveMusic" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
                 </a>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="mobile" data-delay="200">
-            <div class="project-image">
-              <span class="project-badge">Final year project</span>
+          <article class="project-card project-feature feature-c reveal" data-category="mobile">
+            <div class="project-media">
               <img src="assets/images/yes-halal.webp" alt="Yes, Halal app home screen with scan, find halal places and AI ingredient help"
-                   width="800" height="450" loading="lazy" />
+                   width="1200" height="675" loading="lazy" />
             </div>
-            <div class="project-body">
-              <h3 class="project-title">Yes, Halal — Full-Stack Mobile App</h3>
+            <div class="project-info">
+              <p class="project-index"><span>03</span> Mobile app <span class="project-badge">Final year project</span></p>
+              <h3 class="project-title">Yes, Halal <span class="project-kind">Full-Stack Mobile App</span></h3>
               <p class="project-description">
                 A four-member final year project that helps users verify halal products with barcode scanning, check ingredients, and find nearby halal restaurants. I built the Node.js API and Firestore data layer, improved the Flutter interfaces, and connected the front end to the back end, with Firebase Authentication and Postman API testing.
               </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">Flutter</li>
-                <li class="chip chip-sm">Dart</li>
-                <li class="chip chip-sm">Node.js</li>
-                <li class="chip chip-sm">Firebase Auth</li>
-                <li class="chip chip-sm">Firestore</li>
-                <li class="chip chip-sm">Gemini</li>
-                <li class="chip chip-sm">Groq</li>
+              <p class="project-figure"><strong>4</strong> person team</p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>Flutter</li><li>Dart</li><li>Node.js</li><li>Firebase Auth</li><li>Firestore</li><li>Gemini</li><li>Groq</li>
               </ul>
               <div class="project-actions">
                 <span class="project-note">Mobile app &middot; team repository</span>
@@ -481,168 +450,165 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="desktop">
-            <div class="project-image">
+          <article class="project-card project-feature feature-a reveal" data-category="desktop">
+            <a class="project-media" href="https://github.com/hazell-lab/ClipNest" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="View source">
               <img src="assets/images/clipnest.webp" alt="ClipNest clipboard panel with search, filters and recent items"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">ClipNest — Clipboard Manager for Windows</h3>
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>04</span> Windows app</p>
+              <h3 class="project-title">ClipNest <span class="project-kind">Clipboard Manager for Windows</span></h3>
               <p class="project-description">
                 A tray app that saves the text and images you copy and opens a searchable panel with Ctrl+Shift+V. Pinned snippets, code preview with syntax colours for 11 languages, history limits, excluded apps and pause controls. Uses Windows clipboard notifications (no polling), stores everything locally in SQLite, and passes 125 unit tests.
               </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">C#</li>
-                <li class="chip chip-sm">.NET 10</li>
-                <li class="chip chip-sm">WPF</li>
-                <li class="chip chip-sm">SQLite</li>
-                <li class="chip chip-sm">Win32 API</li>
-                <li class="chip chip-sm">Unit tests</li>
+              <p class="project-figure"><strong>125</strong> unit tests</p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>C#</li><li>.NET 10</li><li>WPF</li><li>SQLite</li><li>Win32 API</li><li>Unit tests</li>
               </ul>
               <div class="project-actions">
                 <a class="btn btn-primary btn-sm" href="https://github.com/hazell-lab/ClipNest" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
                 </a>
-                <span class="project-note"><i class="fa-brands fa-windows" aria-hidden="true"></i>&nbsp;Windows 11 app</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-category="web" data-delay="100">
-            <div class="project-image">
-              <img src="assets/images/hazstore.webp" alt="HazStore electronics store product grid"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">HazStore — E-commerce Front End</h3>
-              <p class="project-description">
-                A responsive electronics store front end with product search, filters for category, price, rating and availability, sorting, a cart, a wishlist, recently viewed products and a demo checkout form. Cart and wishlist data are saved with localStorage.
-              </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">HTML</li>
-                <li class="chip chip-sm">CSS</li>
-                <li class="chip chip-sm">JavaScript</li>
-                <li class="chip chip-sm">localStorage</li>
-              </ul>
-              <div class="project-actions">
-                <a class="btn btn-primary btn-sm" href="https://hazstore-ecommerce.netlify.app" target="_blank" rel="noopener">
-                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
-                </a>
-                <a class="btn btn-outline btn-sm" href="https://github.com/hazell-lab/haz-store" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-category="web" data-delay="200">
-            <div class="project-image">
-              <img src="assets/images/hazcast.webp" alt="HazCast weather dashboard with forecast"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">HazCast — Weather Dashboard</h3>
-              <p class="project-description">
-                A weather dashboard that fetches live data from the Open-Meteo API. Users can search for a city or use their location, switch between °C and °F, view hourly and 7-day forecasts, and keep favourite cities and recent searches.
-              </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">HTML</li>
-                <li class="chip chip-sm">CSS</li>
-                <li class="chip chip-sm">JavaScript</li>
-                <li class="chip chip-sm">REST API</li>
-                <li class="chip chip-sm">Geolocation</li>
-              </ul>
-              <div class="project-actions">
-                <a class="btn btn-primary btn-sm" href="https://hazcast-weatherdashboard.netlify.app" target="_blank" rel="noopener">
-                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
-                </a>
-                <a class="btn btn-outline btn-sm" href="https://github.com/hazell-lab/Haz-Cast" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-category="web">
-            <div class="project-image">
-              <img src="assets/images/hazfocus.webp" alt="HazFocus kanban board and task stats"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">HazFocus — Kanban Task Manager</h3>
-              <p class="project-description">
-                A kanban-style productivity app with a dashboard showing total, completed, pending and overdue tasks and overall progress. Tasks can be filtered by status, priority, category and due date, sorted several ways, and are saved in the browser with localStorage.
-              </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">HTML</li>
-                <li class="chip chip-sm">CSS</li>
-                <li class="chip chip-sm">JavaScript</li>
-                <li class="chip chip-sm">localStorage</li>
-              </ul>
-              <div class="project-actions">
-                <a class="btn btn-primary btn-sm" href="https://productivity-app-hazim.netlify.app" target="_blank" rel="noopener">
-                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
-                </a>
-                <a class="btn btn-outline btn-sm" href="https://github.com/hazell-lab/Haz-Focus" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-category="desktop" data-delay="100">
-            <div class="project-image">
-              <img src="assets/images/kite.webp" alt="Kite launcher search box with example commands"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">Kite — Quick Launcher for Windows</h3>
-              <p class="project-description">
-                A keyboard-first launcher: press Alt+Space, type, press Enter. Opens apps (including Microsoft Store apps), does quick maths, runs web searches with short prefixes, and supports bookmarks and custom aliases. All search logic lives in a separate, unit-tested core library with no Windows dependency.
-              </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">C#</li>
-                <li class="chip chip-sm">.NET 10</li>
-                <li class="chip chip-sm">WPF</li>
-                <li class="chip chip-sm">Win32 API</li>
-                <li class="chip chip-sm">Unit tests</li>
-              </ul>
-              <div class="project-actions">
-                <a class="btn btn-primary btn-sm" href="https://github.com/hazell-lab/kite" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
-                </a>
-                <span class="project-note"><i class="fa-brands fa-windows" aria-hidden="true"></i>&nbsp;Windows 11 app</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-category="desktop" data-delay="200">
-            <div class="project-image">
-              <img src="assets/images/islandbar.webp" alt="IslandBar island showing the song playing and battery level"
-                   width="800" height="450" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">IslandBar — Dynamic Island for Windows</h3>
-              <p class="project-description">
-                A floating animated pill at the top of the screen that shows what is playing, pops up on volume and battery changes, and has a countdown timer. Never steals keyboard focus, with settings for position, size, animation intensity and fullscreen behaviour.
-              </p>
-              <ul class="project-tech">
-                <li class="chip chip-sm">C#</li>
-                <li class="chip chip-sm">.NET 8</li>
-                <li class="chip chip-sm">WPF</li>
-                <li class="chip chip-sm">NAudio</li>
-                <li class="chip chip-sm">Windows Media API</li>
-              </ul>
-              <div class="project-actions">
-                <a class="btn btn-primary btn-sm" href="https://github.com/hazell-lab/IslandBar" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
-                </a>
-                <span class="project-note"><i class="fa-brands fa-windows" aria-hidden="true"></i>&nbsp;Windows 11 app</span>
+                <span class="project-note"><svg class="icon" aria-hidden="true"><use href="#i-windows"></use></svg> Windows 11 app</span>
               </div>
             </div>
           </article>
 
         </div>
+
+        <!-- the rest of the work, set as an index -->
+        <div class="project-group projects-index">
+          <h3 class="index-title reveal"><span class="meta-key">Index</span> More projects</h3>
+
+          <article class="project-card project-row reveal" data-category="web">
+            <a class="project-media" href="https://hazstore-ecommerce.netlify.app" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
+              <img src="assets/images/hazstore.webp" alt="HazStore electronics store product grid"
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>05</span> Web app</p>
+              <h3 class="project-title">HazStore <span class="project-kind">E-commerce Front End</span></h3>
+              <p class="project-description">
+                A responsive electronics store front end with product search, filters for category, price, rating and availability, sorting, a cart, a wishlist, recently viewed products and a demo checkout form. Cart and wishlist data are saved with localStorage.
+              </p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>HTML</li><li>CSS</li><li>JavaScript</li><li>localStorage</li>
+              </ul>
+              <div class="project-actions">
+                <a class="link-arrow" href="https://hazstore-ecommerce.netlify.app" target="_blank" rel="noopener">
+                  Live Demo <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+                <a class="link-arrow" href="https://github.com/hazell-lab/haz-store" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card project-row reveal" data-category="web">
+            <a class="project-media" href="https://hazcast-weatherdashboard.netlify.app" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
+              <img src="assets/images/hazcast.webp" alt="HazCast weather dashboard with forecast"
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>06</span> Web app</p>
+              <h3 class="project-title">HazCast <span class="project-kind">Weather Dashboard</span></h3>
+              <p class="project-description">
+                A weather dashboard that fetches live data from the Open-Meteo API. Users can search for a city or use their location, switch between °C and °F, view hourly and 7-day forecasts, and keep favourite cities and recent searches.
+              </p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>HTML</li><li>CSS</li><li>JavaScript</li><li>REST API</li><li>Geolocation</li>
+              </ul>
+              <div class="project-actions">
+                <a class="link-arrow" href="https://hazcast-weatherdashboard.netlify.app" target="_blank" rel="noopener">
+                  Live Demo <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+                <a class="link-arrow" href="https://github.com/hazell-lab/Haz-Cast" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card project-row reveal" data-category="web">
+            <a class="project-media" href="https://productivity-app-hazim.netlify.app" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
+              <img src="assets/images/hazfocus.webp" alt="HazFocus kanban board and task stats"
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>07</span> Web app</p>
+              <h3 class="project-title">HazFocus <span class="project-kind">Kanban Task Manager</span></h3>
+              <p class="project-description">
+                A kanban-style productivity app with a dashboard showing total, completed, pending and overdue tasks and overall progress. Tasks can be filtered by status, priority, category and due date, sorted several ways, and are saved in the browser with localStorage.
+              </p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>HTML</li><li>CSS</li><li>JavaScript</li><li>localStorage</li>
+              </ul>
+              <div class="project-actions">
+                <a class="link-arrow" href="https://productivity-app-hazim.netlify.app" target="_blank" rel="noopener">
+                  Live Demo <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+                <a class="link-arrow" href="https://github.com/hazell-lab/Haz-Focus" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card project-row reveal" data-category="desktop">
+            <a class="project-media" href="https://github.com/hazell-lab/kite" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="View source">
+              <img src="assets/images/kite.webp" alt="Kite launcher search box with example commands"
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>08</span> Windows app</p>
+              <h3 class="project-title">Kite <span class="project-kind">Quick Launcher for Windows</span></h3>
+              <p class="project-description">
+                A keyboard-first launcher: press Alt+Space, type, press Enter. Opens apps (including Microsoft Store apps), does quick maths, runs web searches with short prefixes, and supports bookmarks and custom aliases. All search logic lives in a separate, unit-tested core library with no Windows dependency.
+              </p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>C#</li><li>.NET 10</li><li>WPF</li><li>Win32 API</li><li>Unit tests</li>
+              </ul>
+              <div class="project-actions">
+                <a class="link-arrow" href="https://github.com/hazell-lab/kite" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
+                </a>
+                <span class="project-note"><svg class="icon" aria-hidden="true"><use href="#i-windows"></use></svg> Windows 11 app</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card project-row reveal" data-category="desktop">
+            <a class="project-media" href="https://github.com/hazell-lab/IslandBar" target="_blank" rel="noopener"
+               tabindex="-1" aria-hidden="true" data-cursor="View source">
+              <img src="assets/images/islandbar.webp" alt="IslandBar island showing the song playing and battery level"
+                   width="1200" height="675" loading="lazy" />
+            </a>
+            <div class="project-info">
+              <p class="project-index"><span>09</span> Windows app</p>
+              <h3 class="project-title">IslandBar <span class="project-kind">Dynamic Island for Windows</span></h3>
+              <p class="project-description">
+                A floating animated pill at the top of the screen that shows what is playing, pops up on volume and battery changes, and has a countdown timer. Never steals keyboard focus, with settings for position, size, animation intensity and fullscreen behaviour.
+              </p>
+              <ul class="project-tech" aria-label="Technologies">
+                <li>C#</li><li>.NET 8</li><li>WPF</li><li>NAudio</li><li>Windows Media API</li>
+              </ul>
+              <div class="project-actions">
+                <a class="link-arrow" href="https://github.com/hazell-lab/IslandBar" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg> Code
+                </a>
+                <span class="project-note"><svg class="icon" aria-hidden="true"><use href="#i-windows"></use></svg> Windows 11 app</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="filter-status visually-hidden" id="filter-status" role="status" aria-live="polite"></p>
 
       </div>
     </section>
@@ -650,28 +616,26 @@
     <!-- =========================
          education
     ========================== -->
-    <section class="section section-alt" id="education">
+    <section class="section section-education" id="education" aria-labelledby="education-title">
       <div class="container">
 
-        <header class="section-header reveal">
+        <header class="section-head reveal">
+          <span class="section-num">04</span>
           <p class="section-eyebrow">Education</p>
-          <h2 class="section-title">My academic background</h2>
+          <h2 class="section-title" id="education-title">My academic <em>background</em></h2>
           <p class="section-subtitle">
             A short timeline of my studies and the certifications I have collected so far.
           </p>
         </header>
 
-        <!-- timeline -->
+        <!-- timeline, set like the entries of a cv -->
         <div class="timeline">
 
           <article class="timeline-item reveal">
-            <span class="timeline-dot" aria-hidden="true"></span>
+            <span class="timeline-date">2024 – 2027 <em>(expected)</em></span>
             <div class="timeline-card">
-              <span class="timeline-date">2024 – 2027 (expected)</span>
               <h3 class="timeline-title">Diploma in Software Engineering</h3>
-              <p class="timeline-place">
-                <i class="fa-solid fa-school" aria-hidden="true"></i> German-Malaysian Institute
-              </p>
+              <p class="timeline-place">German-Malaysian Institute</p>
               <p class="timeline-text">
                 Currently studying software engineering with a focus on programming fundamentals
                 and practical software development. My coursework includes:
@@ -683,20 +647,15 @@
                 <li>Mobile development</li>
                 <li>Web development</li>
               </ul>
-              <p class="timeline-badge">
-                <i class="fa-solid fa-star" aria-hidden="true"></i> CGPA: 3.70
-              </p>
             </div>
+            <p class="timeline-badge"><span class="meta-key">CGPA</span> <strong>3.70</strong></p>
           </article>
 
-          <article class="timeline-item reveal" data-delay="120">
-            <span class="timeline-dot" aria-hidden="true"></span>
+          <article class="timeline-item reveal">
+            <span class="timeline-date">2024</span>
             <div class="timeline-card">
-              <span class="timeline-date">2024</span>
               <h3 class="timeline-title">Secondary Education — SPM</h3>
-              <p class="timeline-place">
-                <i class="fa-solid fa-school" aria-hidden="true"></i> SMK KEM TERENDAK
-              </p>
+              <p class="timeline-place">SMK KEM TERENDAK</p>
               <p class="timeline-text">
                 Completed secondary education with an interest in science, mathematics, and
                 computer-related subjects, which led me to study software engineering.
@@ -707,27 +666,22 @@
         </div>
 
         <!-- certificates -->
-        <h3 class="subsection-title reveal">Courses &amp; Professional Development</h3>
-        <div class="cert-grid">
-
-          <article class="cert-card reveal">
-            <span class="cert-icon"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i></span>
-            <h4>Microsoft Power BI Data Analyst</h4>
-            <p>Data visualisation and reporting fundamentals.</p>
-          </article>
-
-          <article class="cert-card reveal" data-delay="100">
-            <span class="cert-icon"><i class="fa-solid fa-cloud" aria-hidden="true"></i></span>
-            <h4>AWS AI &amp; Cloud Skills Day</h4>
-            <p>Introduction to cloud computing and AI services on AWS.</p>
-          </article>
-
-          <article class="cert-card reveal" data-delay="200">
-            <span class="cert-icon"><i class="fa-solid fa-network-wired" aria-hidden="true"></i></span>
-            <h4>Cisco Networking Academy — IT Essentials</h4>
-            <p>Computer hardware, networking and IT support basics.</p>
-          </article>
-
+        <div class="cert-block">
+          <h3 class="subsection-title reveal"><span class="meta-key">Also</span> Courses &amp; Professional Development</h3>
+          <ul class="cert-grid">
+            <li class="cert-card reveal">
+              <h4>Microsoft Power BI Data Analyst</h4>
+              <p>Data visualisation and reporting fundamentals.</p>
+            </li>
+            <li class="cert-card reveal" data-delay="80">
+              <h4>AWS AI &amp; Cloud Skills Day</h4>
+              <p>Introduction to cloud computing and AI services on AWS.</p>
+            </li>
+            <li class="cert-card reveal" data-delay="160">
+              <h4>Cisco Networking Academy — IT Essentials</h4>
+              <p>Computer hardware, networking and IT support basics.</p>
+            </li>
+          </ul>
         </div>
 
       </div>
@@ -737,74 +691,75 @@
          experience and learning
          no fake jobs here, this is my real learning journey
     ========================== -->
-    <section class="section" id="experience">
+    <section class="section section-experience" id="experience" aria-labelledby="experience-title">
       <div class="container">
 
-        <header class="section-header reveal">
+        <header class="section-head reveal">
+          <span class="section-num">05</span>
           <p class="section-eyebrow">Experience &amp; Learning</p>
-          <h2 class="section-title">What I have been building</h2>
+          <h2 class="section-title" id="experience-title">What I have <em>been building</em></h2>
           <p class="section-subtitle">
             The practical skills behind my projects, and where you can see each one in action.
           </p>
         </header>
 
-        <div class="experience-grid">
+        <ol class="experience-grid">
 
-          <article class="experience-card reveal">
-            <span class="experience-icon"><i class="fa-brands fa-react" aria-hidden="true"></i></span>
+          <li class="experience-card reveal">
             <h3>React + TypeScript</h3>
             <p>
               Migrated Streamix to strict TypeScript, with React Router, Context API, custom hooks,
               code splitting with React.lazy, and debounced search synced to the URL.
             </p>
-          </article>
+            <a class="experience-link" href="#projects">Seen in Streamix</a>
+          </li>
 
-          <article class="experience-card reveal" data-delay="100">
-            <span class="experience-icon"><i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i></span>
+          <li class="experience-card reveal" data-delay="80">
             <h3>Working with REST APIs</h3>
             <p>
               Fetched and displayed live data from TMDB (Streamix) and Open-Meteo (HazCast), with
               request caching, loading states and clear error messages.
             </p>
-          </article>
+            <a class="experience-link" href="#projects">Seen in Streamix, HazCast</a>
+          </li>
 
-          <article class="experience-card reveal" data-delay="200">
-            <span class="experience-icon"><i class="fa-solid fa-server" aria-hidden="true"></i></span>
+          <li class="experience-card reveal" data-delay="160">
             <h3>Backend and databases</h3>
             <p>
               Wrote the Node.js API and Firestore data layer for Yes, Halal, added Firebase
               Authentication, and tested endpoints with Postman.
             </p>
-          </article>
+            <a class="experience-link" href="#projects">Seen in Yes, Halal</a>
+          </li>
 
-          <article class="experience-card reveal" data-delay="300">
-            <span class="experience-icon"><i class="fa-brands fa-windows" aria-hidden="true"></i></span>
+          <li class="experience-card reveal">
             <h3>Native Windows apps</h3>
             <p>
               Built ClipNest, Kite and IslandBar in C# with WPF, calling Win32 clipboard, hotkey,
               tray and audio APIs directly, with per-monitor DPI and keyboard support.
             </p>
-          </article>
+            <a class="experience-link" href="#projects">Seen in ClipNest, Kite, IslandBar</a>
+          </li>
 
-          <article class="experience-card reveal" data-delay="100">
-            <span class="experience-icon"><i class="fa-solid fa-vial-circle-check" aria-hidden="true"></i></span>
+          <li class="experience-card reveal" data-delay="80">
             <h3>Automated testing</h3>
             <p>
               Wrote 34 Vitest + React Testing Library tests for Streamix and 125 unit tests for
               ClipNest, keeping core logic in separate, testable libraries.
             </p>
-          </article>
+            <a class="experience-link" href="#projects">Seen in Streamix, ClipNest</a>
+          </li>
 
-          <article class="experience-card reveal" data-delay="200">
-            <span class="experience-icon"><i class="fa-solid fa-users-gear" aria-hidden="true"></i></span>
+          <li class="experience-card reveal" data-delay="160">
             <h3>Team development</h3>
             <p>
               Worked in a four-member team on my final year project: planning features, splitting
               tasks, connecting front end to back end, and testing together.
             </p>
-          </article>
+            <a class="experience-link" href="#projects">Seen in Yes, Halal</a>
+          </li>
 
-        </div>
+        </ol>
 
       </div>
     </section>
@@ -812,56 +767,60 @@
     <!-- =========================
          contact
     ========================== -->
-    <section class="section section-alt" id="contact">
+    <section class="section section-contact" id="contact" aria-labelledby="contact-title">
       <div class="container">
 
-        <header class="section-header reveal">
+        <header class="section-head reveal">
+          <span class="section-num">06</span>
           <p class="section-eyebrow">Contact</p>
-          <h2 class="section-title">Let's get in touch</h2>
-          <p class="section-subtitle">
-            I am available for an 18-week internship from <strong>11 January to 14 May 2027</strong>.
-            If you have an opportunity, a question, or feedback on my projects, feel free to
-            contact me.
-          </p>
         </header>
+
+        <h2 class="contact-title reveal" id="contact-title">Let's get <em>in touch.</em></h2>
 
         <div class="contact-grid">
 
-          <!-- my contact details -->
-          <div class="contact-info">
+          <div class="contact-side">
+            <p class="section-subtitle reveal">
+              I am available for an 18-week internship from <strong>11 January to 14 May 2027</strong>.
+              If you have an opportunity, a question, or feedback on my projects, feel free to
+              contact me.
+            </p>
 
-            <a class="contact-card reveal" href="mailto:mdhazim.aqil@gmail.com">
-              <span class="contact-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
-              <span class="contact-text">
-                <strong>Email</strong>
-                <span>mdhazim.aqil@gmail.com</span>
-              </span>
+            <a class="contact-email reveal" href="mailto:mdhazim.aqil@gmail.com">
+              mdhazim.aqil@gmail.com
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
             </a>
 
-            <a class="contact-card reveal" data-delay="80" href="https://github.com/hazell-lab/" target="_blank" rel="noopener">
-              <span class="contact-icon"><i class="fa-brands fa-github" aria-hidden="true"></i></span>
-              <span class="contact-text">
-                <strong>GitHub</strong>
-                <span>https://github.com/hazell-lab/</span>
-              </span>
-            </a>
-
-            <a class="contact-card reveal" data-delay="160" href="https://www.linkedin.com/in/mdhazimaqil/" target="_blank" rel="noopener">
-              <span class="contact-icon"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span>
-              <span class="contact-text">
-                <strong>LinkedIn</strong>
-                <span>https://www.linkedin.com/in/mdhazimaqil/</span>
-              </span>
-            </a>
-
-            <div class="contact-card reveal" data-delay="240">
-              <span class="contact-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
-              <span class="contact-text">
-                <strong>Location</strong>
-                <span>Malaysia</span>
-              </span>
-            </div>
-
+            <!-- my contact details -->
+            <ul class="contact-info reveal">
+              <li>
+                <a class="contact-card" href="mailto:mdhazim.aqil@gmail.com">
+                  <span class="contact-label">Email</span>
+                  <span class="contact-value">mdhazim.aqil@gmail.com</span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a class="contact-card" href="https://github.com/hazell-lab/" target="_blank" rel="noopener">
+                  <span class="contact-label">GitHub</span>
+                  <span class="contact-value">github.com/hazell-lab</span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a class="contact-card" href="https://www.linkedin.com/in/mdhazimaqil/" target="_blank" rel="noopener">
+                  <span class="contact-label">LinkedIn</span>
+                  <span class="contact-value">linkedin.com/in/mdhazimaqil</span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+              </li>
+              <li>
+                <div class="contact-card">
+                  <span class="contact-label">Location</span>
+                  <span class="contact-value">Malaysia</span>
+                </div>
+              </li>
+            </ul>
           </div>
 
           <!-- contact form, sent with netlify forms. messages show up in
@@ -878,15 +837,17 @@
               <label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
             </p>
 
+            <p class="form-heading"><span class="meta-key">Or write here</span> Send a message</p>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required />
+                <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required />
               </div>
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
               </div>
             </div>
 
@@ -901,7 +862,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="form-submit">
-              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
+              Send Message <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
             </button>
 
             <!-- javascript writes the message here -->
@@ -921,48 +882,64 @@
   <footer class="site-footer">
     <div class="container footer-inner">
 
-      <div class="footer-brand">
-        <a href="#home" class="logo">
-          <span class="logo-mark">&lt;/&gt;</span>
-          <span class="logo-text">HAZIM AQIL</span>
-        </a>
-        <p class="footer-tagline">Built with HTML, CSS &amp; vanilla JavaScript</p>
+      <div class="footer-cols">
+        <div class="footer-brand">
+          <p class="footer-tagline">Built with HTML, CSS &amp; vanilla JavaScript</p>
+          <p class="footer-note">Set in Instrument Serif, Schibsted Grotesk and JetBrains Mono.</p>
+        </div>
+
+        <ul class="footer-socials">
+          <li>
+            <a class="social-link" href="https://github.com/hazell-lab/" target="_blank" rel="noopener" aria-label="GitHub profile">
+              <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg><span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="https://www.linkedin.com/in/mdhazimaqil/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+              <svg class="icon" aria-hidden="true"><use href="#i-linkedin"></use></svg><span>LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="mailto:mdhazim.aqil@gmail.com" aria-label="Send me an email">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg><span>Email</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="assets/resume/resume.pdf" download aria-label="Download resume">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg><span>Resume</span>
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <ul class="footer-socials">
-        <li>
-          <a class="social-link" href="https://github.com/hazell-lab/" target="_blank" rel="noopener" aria-label="GitHub profile">
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li>
-          <a class="social-link" href="https://www.linkedin.com/in/mdhazimaqil/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li>
-          <a class="social-link" href="mailto:mdhazim.aqil@gmail.com" aria-label="Send me an email">
-            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-          </a>
-        </li>
-      </ul>
+      <!-- big name set across the full width -->
+      <a href="#home" class="footer-wordmark" aria-label="Hazim Aqil, back to top">
+        <span aria-hidden="true">Hazim <em>Aqil</em></span>
+      </a>
 
       <div class="footer-bottom">
         <p>&copy; <span id="year">2026</span> HAZIM AQIL. All rights reserved.</p>
         <a class="back-to-top-link" href="#home">
-          Back to Top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+          Back to Top <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
         </a>
       </div>
 
     </div>
   </footer>
 
-  <!-- floating back to top button, javascript shows it after you scroll down -->
+  <!-- floating back to top button, the ring shows how far down the page you are -->
   <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
-    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    <svg class="progress-ring" viewBox="0 0 48 48" aria-hidden="true">
+      <circle class="progress-track" cx="24" cy="24" r="22" />
+      <circle class="progress-bar" id="progress-bar" cx="24" cy="24" r="22" />
+    </svg>
+    <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
   </button>
 
+  <!-- small label that follows the mouse over project images (desktop only) -->
+  <div class="cursor-label" id="cursor-label" aria-hidden="true"></div>
+
   <!-- my javascript file, loaded last so all the html already exists -->
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=2"></script>
 </body>
 </html>

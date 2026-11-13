@@ -1,23 +1,24 @@
 # Hazim Aqil — Developer Portfolio
 
-My personal portfolio website: a responsive, dark-themed single page that presents my projects, skills, education and internship availability.
+My personal portfolio website: a responsive, editorial single page with light and dark themes that presents my projects, skills, education and internship availability.
 
 **Live site:** https://hazimaqil-portfolio.netlify.app
 
-> Software Engineering student at German-Malaysian Institute (GMI), building React/TypeScript web apps and C#/.NET Windows apps.
+> Front-end developer and Software Engineering student at German-Malaysian Institute (GMI), building React/TypeScript web apps (plus a few C#/.NET Windows tools).
 > **Available for internship: 11 January – 14 May 2027.**
 
 ---
 
 ## Features
 
-- **Responsive layout** for phones, tablets and desktops, built with CSS Grid and Flexbox
+- **Light and dark themes** that follow the system setting, can be switched by hand, are saved in localStorage and load without a flash
+- **Responsive layout** for phones, tablets and desktops, built on a 12-column CSS Grid
 - **Project filter** to show All, Web, Desktop or Mobile projects (9 projects)
 - **Working contact form** using Netlify Forms, with a spam honeypot and clear success/error messages
-- **Scroll-based active navigation**, a mobile hamburger menu and a back-to-top button
-- **Scroll-reveal animations** and a typing effect in the hero, both turned off for users who prefer reduced motion
+- **Scroll-based active navigation**, a full-screen mobile menu and a back-to-top button with a scroll progress ring
+- **Purposeful motion**: hero name intro, scroll reveals, subtle screenshot parallax and a cursor label on project images, all turned off for users who prefer reduced motion
 - **Accessibility**: skip link, semantic landmarks, alt text on every image, keyboard-friendly controls and `aria-pressed` filter buttons
-- **Performance**: compressed WebP screenshots, lazy-loaded images, no framework and no build step
+- **Performance**: compressed WebP screenshots, lazy-loaded images, inline SVG icons (no icon font), no framework and no build step
 - **Link previews**: Open Graph tags so the site shows a proper card when shared on LinkedIn or WhatsApp
 
 ## Tech stack
@@ -26,7 +27,7 @@ My personal portfolio website: a responsive, dark-themed single page that presen
 |---|---|
 | Markup & styling | HTML5, CSS3 (custom properties, Grid, Flexbox, media queries) |
 | Behaviour | Vanilla JavaScript (ES6+), Intersection Observer, Fetch API |
-| Icons & fonts | Font Awesome, Google Fonts |
+| Icons & fonts | Inline SVG icons, Google Fonts (Instrument Serif, Schibsted Grotesk, JetBrains Mono) |
 | Forms | Netlify Forms |
 | Hosting | Netlify |
 
@@ -50,15 +51,16 @@ My personal portfolio website: a responsive, dark-themed single page that presen
 portfolio/
 ├── index.html            # all page content and sections
 ├── css/
-│   └── style.css         # theme variables, layout, components, media queries
+│   └── style.css         # design tokens (light + dark), layout, components, media queries
 ├── js/
-│   └── script.js         # menu, nav, animations, typing, project filter, contact form
+│   └── script.js         # theme, menu, nav, animations, project filter, contact form
 ├── assets/
 │   ├── images/           # profile photo and project screenshots (.webp)
 │   ├── icons/
 │   │   └── favicon.svg
 │   └── resume/
 │       └── resume.pdf    # downloadable CV
+├── DESIGN.md             # design audit and design system notes
 └── README.md
 ```
 
