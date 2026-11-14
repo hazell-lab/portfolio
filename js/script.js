@@ -17,6 +17,7 @@
    10. project image parallax and cursor label (desktop only)
    11. contact form (netlify forms)
    12. current year in the footer
+   13. local time and pointer drift in the hero
 
    tip: press f12 in the browser to see errors while you edit.
 ========================= */
@@ -420,10 +421,41 @@ const projectCards = document.querySelectorAll(".project-card");
 const projectGroups = document.querySelectorAll(".project-group");
 const filterStatus = document.getElementById("filter-status");
 
+const contentsItems = document.querySelectorAll(".project-contents li");
+
+function applyFilter(filter) {
+  let shown = 0;
+
+  /* show matching projects, hide the rest */
+  projectCards.forEach(function (card) {
+    const matches = filter === "all" || card.getAttribute("data-category") === filter;
+    card.hidden = !matches;
+    if (matches) {
+      shown++;
+      card.classList.add("visible"); // make sure reveal animation is not stuck hidden
+    }
+  });
+
+  /* the contents list only shows the projects that are visible */
+  contentsItems.forEach(function (item) {
+    item.hidden = !(filter === "all" || item.getAttribute("data-category") === filter);
+  });
+
+  /* hide a whole group (like the index) when nothing in it matches */
+  projectGroups.forEach(function (group) {
+    group.hidden = group.querySelectorAll(".project-card:not([hidden])").length === 0;
+  });
+
+  if (filterStatus) {
+    filterStatus.textContent = "Showing " + shown + (shown === 1 ? " project" : " projects");
+  }
+
+  updateParallax();
+}
+
 filterButtons.forEach(function (button) {
   button.addEventListener("click", function () {
     const filter = button.getAttribute("data-filter");
-    let shown = 0;
 
     /* move the active style to the clicked button */
     filterButtons.forEach(function (other) {
@@ -431,28 +463,43 @@ filterButtons.forEach(function (button) {
       other.setAttribute("aria-pressed", other === button);
     });
 
-    /* show matching projects, hide the rest */
-    projectCards.forEach(function (card) {
-      const matches = filter === "all" || card.getAttribute("data-category") === filter;
-      card.hidden = !matches;
-      if (matches) {
-        shown++;
-        card.classList.add("visible"); // make sure reveal animation is not stuck hidden
-      }
-    });
-
-    /* hide a whole group (like the index) when nothing in it matches */
-    projectGroups.forEach(function (group) {
-      group.hidden = group.querySelectorAll(".project-card:not([hidden])").length === 0;
-    });
-
-    if (filterStatus) {
-      filterStatus.textContent = "Showing " + shown + (shown === 1 ? " project" : " projects");
+    /* cross-fade the swap where the browser supports view transitions */
+    if (!document.startViewTransition || prefersReducedMotion || document.hidden || themeTransitionRunning) {
+      applyFilter(filter);
+      return;
     }
 
-    updateParallax();
+    root.classList.add("filtering");
+    const transition = document.startViewTransition(function () {
+      applyFilter(filter);
+    });
+    /* a transition can be skipped (for example on resize), so swallow those rejections */
+    transition.ready.catch(function () {});
+    transition.updateCallbackDone.catch(function () {});
+    transition.finished.catch(function () {}).then(function () {
+      root.classList.remove("filtering");
+    });
   });
 });
+
+/* the contents list underlines the project you are looking at */
+if ("IntersectionObserver" in window && contentsItems.length) {
+  const contentsLinks = document.querySelectorAll(".project-contents a");
+
+  const projectObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        contentsLinks.forEach(function (link) {
+          link.classList.toggle("current", link.getAttribute("data-project") === entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+
+  projectCards.forEach(function (card) {
+    projectObserver.observe(card);
+  });
+}
 
 
 /* =========================
@@ -604,15 +651,46 @@ if (contactForm) {
    12. current year
 ========================= */
 
-const editionYear = document.getElementById("edition-year");
-const thisYear = new Date().getFullYear();
-
 if (yearSpan) {
-  yearSpan.textContent = thisYear;
+  yearSpan.textContent = new Date().getFullYear();
 }
 
-if (editionYear) {
-  editionYear.textContent = thisYear;
+
+/* =========================
+   13. local time in the hero and pointer drift
+========================= */
+
+const localTime = document.getElementById("local-time");
+
+if (localTime && window.Intl) {
+  const clockFormat = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kuala_Lumpur",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  function updateClock() {
+    localTime.textContent = "Malaysia, " + clockFormat.format(new Date()) + " GMT+8";
+  }
+
+  updateClock();
+  setInterval(updateClock, 30000);
+}
+
+/* the two words of the name lean apart slightly as the pointer moves */
+const heroSection = document.querySelector(".hero");
+const heroName = document.querySelector(".hero-name");
+
+if (heroSection && heroName && finePointer && !prefersReducedMotion) {
+  heroSection.addEventListener("pointermove", function (event) {
+    const box = heroSection.getBoundingClientRect();
+    const x = ((event.clientX - box.left) / box.width) * 2 - 1;
+    heroName.style.setProperty("--px", x.toFixed(3));
+  });
+
+  heroSection.addEventListener("pointerleave", function () {
+    heroName.style.setProperty("--px", "0");
+  });
 }
 
 

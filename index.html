@@ -45,7 +45,7 @@
   <!-- the hero portrait is above the fold, so fetch it early -->
   <link rel="preload" as="image" href="assets/images/profile.webp" type="image/webp" />
 
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 
 <body>
@@ -128,7 +128,7 @@
 
         <!-- top line of small facts, like the masthead of a magazine -->
         <ul class="hero-meta">
-          <li class="hero-meta-item"><span class="meta-key">Portfolio</span> Edition <span id="edition-year">2026</span></li>
+          <li class="hero-meta-item"><span class="meta-key">Local time</span> <time id="local-time">Malaysia, GMT+8</time></li>
           <li class="hero-meta-item"><span class="meta-key">Based in</span> Malaysia</li>
           <li class="hero-meta-item"><span class="meta-key">Studying</span> Software Engineering, GMI</li>
           <li class="hero-meta-item available-badge">
@@ -157,26 +157,6 @@
               <span class="role-rotator" aria-hidden="true"><span id="typed-role">Front-End Developer</span></span>
             </h2>
             <p class="hero-subtitle">Software Engineering Student</p>
-          </div>
-
-          <div class="hero-text">
-            <p class="hero-intro">
-              I build web apps with React, TypeScript and JavaScript, and native Windows tools
-              with C# and .NET. My latest projects include <strong>Streamix</strong>, a tested
-              TypeScript streaming UI, and <strong>ClipNest</strong>, a clipboard manager for
-              Windows 11. I'm a Software Engineering student at German-Malaysian Institute,
-              looking for a front-end development internship.
-            </p>
-
-            <div class="hero-buttons">
-              <a class="btn btn-primary" href="#projects">
-                View Projects <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"></use></svg>
-              </a>
-              <a class="btn btn-outline" href="#contact">Contact Me</a>
-              <a class="link-arrow" href="assets/resume/resume.pdf" download>
-                Download Resume <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
-              </a>
-            </div>
 
             <ul class="social-list">
               <li>
@@ -199,15 +179,52 @@
               </li>
             </ul>
           </div>
+
+          <div class="hero-text">
+            <p class="hero-intro">
+              I build web apps with React, TypeScript and JavaScript, and native Windows tools
+              with C# and .NET. My latest projects include <strong>Streamix</strong>, a tested
+              TypeScript streaming UI, and <strong>ClipNest</strong>, a clipboard manager for
+              Windows 11. I'm a Software Engineering student at German-Malaysian Institute,
+              looking for a front-end development internship.
+            </p>
+
+            <!-- the three main actions, set like a table of contents -->
+            <ul class="hero-buttons">
+              <li>
+                <a class="hero-action" href="#projects">
+                  <span class="hero-action-num">A</span>
+                  <span class="hero-action-label">View Projects</span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a class="hero-action" href="#contact">
+                  <span class="hero-action-num">B</span>
+                  <span class="hero-action-label">Contact Me</span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a class="hero-action" href="assets/resume/resume.pdf" download>
+                  <span class="hero-action-num">C</span>
+                  <span class="hero-action-label">Download Resume <span class="hero-action-note">PDF</span></span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <!-- small ledger of real numbers from the projects below -->
-        <dl class="hero-stats">
-          <div><dt>Projects shipped</dt><dd>09</dd><span>Web · Windows · Mobile</span></div>
-          <div><dt>Automated tests written</dt><dd>159</dd><span>34 Vitest + 125 .NET</span></div>
-          <div><dt>Live demos</dt><dd>05</dd><span>Netlify &amp; GitHub Pages</span></div>
-          <div><dt>Diploma CGPA</dt><dd>3.70</dd><span>German-Malaysian Institute</span></div>
-        </dl>
+        <!-- the real numbers from the projects below, written as a sentence -->
+        <p class="hero-ledger">
+          <span class="meta-key">So far</span>
+          <span class="ledger-text">
+            <b>9</b> projects shipped across web, Windows and mobile,
+            <b>159</b> automated tests written <span class="ledger-aside">(34 Vitest + 125 .NET)</span>,
+            <b>5</b> live demos, and a <b>3.70</b> diploma CGPA.
+          </span>
+        </p>
 
       </div>
     </section>
@@ -227,8 +244,7 @@
         <div class="about-grid">
 
           <p class="about-lede reveal">
-            A student developer who enjoys building for the web &mdash; turning ideas into
-            <em>clean, responsive interfaces</em> that work well on every screen size.
+            A student developer who enjoys <em>building for the web.</em>
           </p>
 
           <figure class="about-figure reveal" data-delay="80">
@@ -243,13 +259,18 @@
           <div class="about-content reveal" data-delay="120">
             <h3 class="about-heading">Hello! I'm Hazim Aqil.</h3>
 
+            <div class="about-note">
+            <span class="meta-key">Now</span>
             <p>
               I am a <strong>Software Engineering student</strong> at
               <strong>German-Malaysian Institute</strong> in Malaysia. I build
               <strong>web and desktop applications</strong> and I enjoy turning ideas into clean,
               responsive interfaces that work well on every screen size.
             </p>
+            </div>
 
+            <div class="about-note">
+            <span class="meta-key">Practice</span>
             <p>
               Most of my experience comes from <strong>personal projects</strong> and
               <strong>academic work</strong>. On the web I build with React, TypeScript and
@@ -257,13 +278,17 @@
               My final year project is a full-stack Flutter app with a Node.js API and Firestore
               database, where I connected the front end to the back end.
             </p>
+            </div>
 
+            <div class="about-note">
+            <span class="meta-key">Next</span>
             <p>
               I am early in my career, and what I bring is consistency, curiosity and a real
               willingness to learn from a team. I am looking for an
               <strong>18-week internship (11 January – 14 May 2027)</strong> where I can
               contribute as a front-end developer intern.
             </p>
+            </div>
           </div>
 
           <!-- quick facts, each one backed by a real project -->
@@ -372,10 +397,25 @@
           <button class="filter-btn" type="button" data-filter="mobile" aria-pressed="false">Mobile <span>1</span></button>
         </div>
 
+        <!-- contents list, jumps to each project and follows your scroll -->
+        <nav class="project-contents reveal" aria-label="Project list">
+          <ol>
+            <li data-category="web"><a href="#project-streamix" data-project="project-streamix"><span>01</span>Streamix</a></li>
+            <li data-category="web"><a href="#project-wavemusic" data-project="project-wavemusic"><span>02</span>WaveMusic</a></li>
+            <li data-category="mobile"><a href="#project-yes-halal" data-project="project-yes-halal"><span>03</span>Yes, Halal</a></li>
+            <li data-category="desktop"><a href="#project-clipnest" data-project="project-clipnest"><span>04</span>ClipNest</a></li>
+            <li data-category="web"><a href="#project-hazstore" data-project="project-hazstore"><span>05</span>HazStore</a></li>
+            <li data-category="web"><a href="#project-hazcast" data-project="project-hazcast"><span>06</span>HazCast</a></li>
+            <li data-category="web"><a href="#project-hazfocus" data-project="project-hazfocus"><span>07</span>HazFocus</a></li>
+            <li data-category="desktop"><a href="#project-kite" data-project="project-kite"><span>08</span>Kite</a></li>
+            <li data-category="desktop"><a href="#project-islandbar" data-project="project-islandbar"><span>09</span>IslandBar</a></li>
+          </ol>
+        </nav>
+
         <!-- featured case studies, each with its own composition -->
         <div class="project-group projects-featured">
 
-          <article class="project-card project-feature feature-a reveal" data-category="web">
+          <article id="project-streamix" class="project-card project-feature feature-a reveal" data-category="web">
             <a class="project-media" href="https://streamix-hazim.netlify.app" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/streamix.webp" alt="Streamix home page with trending movie rows"
@@ -402,7 +442,7 @@
             </div>
           </article>
 
-          <article class="project-card project-feature feature-b reveal" data-category="web">
+          <article id="project-wavemusic" class="project-card project-feature feature-b reveal" data-category="web">
             <a class="project-media" href="https://hazell-lab.github.io/WaveMusic/" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/wavemusic.webp" alt="WaveMusic home page with playlists and bottom player"
@@ -429,7 +469,7 @@
             </div>
           </article>
 
-          <article class="project-card project-feature feature-c reveal" data-category="mobile">
+          <article id="project-yes-halal" class="project-card project-feature feature-c reveal" data-category="mobile">
             <div class="project-media">
               <img src="assets/images/yes-halal.webp" alt="Yes, Halal app home screen with scan, find halal places and AI ingredient help"
                    width="1200" height="675" loading="lazy" />
@@ -450,7 +490,7 @@
             </div>
           </article>
 
-          <article class="project-card project-feature feature-a reveal" data-category="desktop">
+          <article id="project-clipnest" class="project-card project-feature feature-a reveal" data-category="desktop">
             <a class="project-media" href="https://github.com/hazell-lab/ClipNest" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="View source">
               <img src="assets/images/clipnest.webp" alt="ClipNest clipboard panel with search, filters and recent items"
@@ -481,7 +521,7 @@
         <div class="project-group projects-index">
           <h3 class="index-title reveal"><span class="meta-key">Index</span> More projects</h3>
 
-          <article class="project-card project-row reveal" data-category="web">
+          <article id="project-hazstore" class="project-card project-row reveal" data-category="web">
             <a class="project-media" href="https://hazstore-ecommerce.netlify.app" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/hazstore.webp" alt="HazStore electronics store product grid"
@@ -507,7 +547,7 @@
             </div>
           </article>
 
-          <article class="project-card project-row reveal" data-category="web">
+          <article id="project-hazcast" class="project-card project-row reveal" data-category="web">
             <a class="project-media" href="https://hazcast-weatherdashboard.netlify.app" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/hazcast.webp" alt="HazCast weather dashboard with forecast"
@@ -533,7 +573,7 @@
             </div>
           </article>
 
-          <article class="project-card project-row reveal" data-category="web">
+          <article id="project-hazfocus" class="project-card project-row reveal" data-category="web">
             <a class="project-media" href="https://productivity-app-hazim.netlify.app" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="Open live demo">
               <img src="assets/images/hazfocus.webp" alt="HazFocus kanban board and task stats"
@@ -559,7 +599,7 @@
             </div>
           </article>
 
-          <article class="project-card project-row reveal" data-category="desktop">
+          <article id="project-kite" class="project-card project-row reveal" data-category="desktop">
             <a class="project-media" href="https://github.com/hazell-lab/kite" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="View source">
               <img src="assets/images/kite.webp" alt="Kite launcher search box with example commands"
@@ -583,7 +623,7 @@
             </div>
           </article>
 
-          <article class="project-card project-row reveal" data-category="desktop">
+          <article id="project-islandbar" class="project-card project-row reveal" data-category="desktop">
             <a class="project-media" href="https://github.com/hazell-lab/IslandBar" target="_blank" rel="noopener"
                tabindex="-1" aria-hidden="true" data-cursor="View source">
               <img src="assets/images/islandbar.webp" alt="IslandBar island showing the song playing and battery level"
@@ -940,6 +980,6 @@
   <div class="cursor-label" id="cursor-label" aria-hidden="true"></div>
 
   <!-- my javascript file, loaded last so all the html already exists -->
-  <script src="js/script.js?v=2"></script>
+  <script src="js/script.js?v=3"></script>
 </body>
 </html>

@@ -67,5 +67,35 @@ The contact section inverts the theme (ink background in light mode, paper in da
 | Header hides on scroll down | more room for content; returns on scroll up or keyboard focus |
 | Progress ring on back-to-top | shows where you are in a long page |
 | Circular theme wipe | connects the change to the button you pressed |
+| Name words lean apart with the pointer (fine pointers) | a small sign of life in the hero, no more than 10px |
+| Filter cross-fade (view transitions) | the list changes without a jump |
+| Contents list follows your scroll | shows which project you are reading and lets you jump to any of the nine |
 
 All of it is disabled under `prefers-reduced-motion: reduce`.
+
+## Round two (November 2026)
+
+What changed after a second pass:
+
+- the hero buttons became an A/B/C list of actions, set in the display face, instead of a pair of pill buttons
+- the four stat boxes became one sentence ("9 projects shipped… 159 automated tests…"); dashboards use stat tiles, a portfolio should read like a page
+- the made-up "edition" label in the masthead became a live local time (Malaysia, GMT+8)
+- about paragraphs carry margin labels: now, practice, next, so they read as a short development story
+- a numbered contents list under the project filters, with a highlight for the project in view
+- experience cards step down in three columns on wide screens, instead of a flat grid
+
+## Keeping it apart from my other projects
+
+Compared against screenshots of HazStore and HazFocus, and the HazFocus app as it runs locally (November 2026):
+
+| | Portfolio | HazStore | HazFocus |
+|---|---|---|---|
+| Role | an editorial page to read | a shop to browse | a tool to use daily |
+| Layout | 12-column page, big type, hairline rules | product grid of rounded cards | sidebar, stat tiles, kanban board |
+| Hero | the name as a wordmark with a portrait set into it | headline with two buttons | greeting plus task stats |
+| Numbers | one sentence | none | stat tiles and a progress bar |
+| Actions | A/B/C list rows | rounded buttons | filled pill buttons and dropdowns |
+
+The portfolio avoids stat tiles, progress bars, rounded card grids and the two-button hero.
+
+One overlap to watch: the current HazFocus build also uses a warm off-white background, a high-contrast serif with italic accents and a red accent colour. Layout and structure differ, but at a glance the palette and display type are close. If the two should feel unrelated, change HazFocus (a cooler neutral, a sans display) rather than the portfolio, since the serif wordmark is the portfolio's signature.
