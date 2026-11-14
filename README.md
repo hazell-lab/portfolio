@@ -57,7 +57,8 @@ portfolio/
 ├── assets/
 │   ├── images/           # profile photo and project screenshots (.webp)
 │   ├── icons/
-│   │   └── favicon.svg
+│   │   ├── icon-192.png
+│   │   └── apple-touch-icon.png
 │   └── resume/
 │       └── resume.pdf    # downloadable CV
 ├── DESIGN.md             # design audit and design system notes

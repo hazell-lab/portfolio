@@ -40,7 +40,10 @@
         rel="stylesheet" />
 
   <!-- small icon in the browser tab -->
-  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <!-- the ?v= number makes browsers drop an old cached icon, bump it when the icon changes -->
+  <link rel="icon" href="favicon.ico?v=3" sizes="48x48" />
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png?v=3" sizes="192x192" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=3" />
 
   <!-- the hero portrait is above the fold, so fetch it early -->
   <link rel="preload" as="image" href="assets/images/profile.webp" type="image/webp" />
