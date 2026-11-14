@@ -3,7 +3,7 @@
    file: css/style.css
 
    design direction: an editorial "catalogue" with immersive details.
-   paper and ink, one vermilion accent, numbered sections, hairline rules.
+   cool paper and ink, one ultramarine accent, numbered sections, hairline rules.
 
    how this file is organised:
    1.  design tokens (light + dark themes)
@@ -31,26 +31,26 @@
 ========================= */
 
 :root {
-  /* light theme: warm paper, deep ink, one restrained accent */
-  --bg: #f2f0ea;
-  --bg-band: #e9e6de;
-  --surface: #faf9f5;
-  --ink: #191917;
-  --ink-2: #48463f;
-  --ink-3: #625f57;
-  --rule: rgba(25, 25, 23, 0.14);
-  --rule-strong: rgba(25, 25, 23, 0.85);
-  --accent: #b9381a;
-  --accent-soft: rgba(185, 56, 26, 0.09);
-  --on-accent: #fff8f3;
-  --on-ink: #f2f0ea;
-  --plate: #1d1c1a;          /* backdrop behind app screenshots */
-  --plate-rule: rgba(25, 25, 23, 0.18);
+  /* light theme: cool paper white, blue-black ink, one ultramarine accent */
+  --bg: #f6f7f9;
+  --bg-band: #eceef3;
+  --surface: #fdfdfe;
+  --ink: #0e1120;
+  --ink-2: #3b4052;
+  --ink-3: #585e70;
+  --rule: rgba(14, 17, 32, 0.13);
+  --rule-strong: rgba(14, 17, 32, 0.85);
+  --accent: #2a3fd9;
+  --accent-soft: rgba(42, 63, 217, 0.08);
+  --on-accent: #ffffff;
+  --on-ink: #f6f7f9;
+  --plate: #12151f;          /* backdrop behind app screenshots */
+  --plate-rule: rgba(14, 17, 32, 0.18);
   --success: #2f7a4b;
   --danger: #b3261e;
-  --shadow-plate: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 30px 60px -30px rgba(25, 25, 23, 0.45);
-  --selection: #191917;
-  --selection-ink: #f2f0ea;
+  --shadow-plate: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 30px 60px -30px rgba(14, 17, 32, 0.45);
+  --selection: #2a3fd9;
+  --selection-ink: #ffffff;
 
   /* type */
   --font-display: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
@@ -95,52 +95,52 @@
   --dur-3: 0.9s;
 }
 
-/* dark theme: warm near-black, soft white, slightly brighter accent */
+/* dark theme: blue-grey near-black, cool white, lighter ultramarine */
 :root[data-theme="dark"] {
-  --bg: #11110f;
-  --bg-band: #171715;
-  --surface: #1b1a18;
-  --ink: #ece9e1;
-  --ink-2: #b9b5ab;
-  --ink-3: #8f8b81;
-  --rule: rgba(236, 233, 225, 0.12);
-  --rule-strong: rgba(236, 233, 225, 0.8);
-  --accent: #ff6b3d;
-  --accent-soft: rgba(255, 107, 61, 0.1);
-  --on-accent: #1a0c06;
-  --on-ink: #11110f;
-  --plate: #1f1e1b;
-  --plate-rule: rgba(236, 233, 225, 0.1);
+  --bg: #0c0f16;
+  --bg-band: #121621;
+  --surface: #161b26;
+  --ink: #e9ebf1;
+  --ink-2: #b4b9c7;
+  --ink-3: #8b91a2;
+  --rule: rgba(233, 235, 241, 0.12);
+  --rule-strong: rgba(233, 235, 241, 0.8);
+  --accent: #8796ff;
+  --accent-soft: rgba(135, 150, 255, 0.1);
+  --on-accent: #0a0e2e;
+  --on-ink: #0c0f16;
+  --plate: #171c28;
+  --plate-rule: rgba(233, 235, 241, 0.1);
   --success: #6fcf8f;
   --danger: #ff8a80;
   --shadow-plate: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
-  --selection: #ff6b3d;
-  --selection-ink: #11110f;
+  --selection: #8796ff;
+  --selection-ink: #0a0e2e;
   color-scheme: dark;
 }
 
 /* no javascript: follow the system setting */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg: #11110f;
-    --bg-band: #171715;
-    --surface: #1b1a18;
-    --ink: #ece9e1;
-    --ink-2: #b9b5ab;
-    --ink-3: #8f8b81;
-    --rule: rgba(236, 233, 225, 0.12);
-    --rule-strong: rgba(236, 233, 225, 0.8);
-    --accent: #ff6b3d;
-    --accent-soft: rgba(255, 107, 61, 0.1);
-    --on-accent: #1a0c06;
-    --on-ink: #11110f;
-    --plate: #1f1e1b;
-    --plate-rule: rgba(236, 233, 225, 0.1);
+    --bg: #0c0f16;
+    --bg-band: #121621;
+    --surface: #161b26;
+    --ink: #e9ebf1;
+    --ink-2: #b4b9c7;
+    --ink-3: #8b91a2;
+    --rule: rgba(233, 235, 241, 0.12);
+    --rule-strong: rgba(233, 235, 241, 0.8);
+    --accent: #8796ff;
+    --accent-soft: rgba(135, 150, 255, 0.1);
+    --on-accent: #0a0e2e;
+    --on-ink: #0c0f16;
+    --plate: #171c28;
+    --plate-rule: rgba(233, 235, 241, 0.1);
     --success: #6fcf8f;
     --danger: #ff8a80;
     --shadow-plate: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
-    --selection: #ff6b3d;
-    --selection-ink: #11110f;
+    --selection: #8796ff;
+    --selection-ink: #0a0e2e;
     color-scheme: dark;
   }
 }
@@ -1946,31 +1946,33 @@ a.project-media:hover img {
 ========================= */
 
 .section-contact {
-  background: #191917;
-  color: #f2f0ea;
+  background: #0e1120;
+  color: #f6f7f9;
   /* inside this block the colours flip, so the end of the page feels like a full stop */
-  --ink: #f2f0ea;
-  --ink-2: rgba(242, 240, 234, 0.74);
-  --ink-3: rgba(242, 240, 234, 0.55);
-  --rule: rgba(242, 240, 234, 0.16);
-  --rule-strong: rgba(242, 240, 234, 0.8);
-  --on-ink: #191917;
-  --accent: #ff7a4f;
-  --on-accent: #1a0c06;
+  --ink: #f6f7f9;
+  --ink-2: rgba(246, 247, 249, 0.74);
+  --ink-3: rgba(246, 247, 249, 0.6);
+  --rule: rgba(246, 247, 249, 0.16);
+  --rule-strong: rgba(246, 247, 249, 0.8);
+  --on-ink: #0e1120;
+  --accent: #8796ff;
+  --on-accent: #0a0e2e;
+  --success: #6fcf8f;
   --surface: transparent;
 }
 
 [data-theme="dark"] .section-contact {
-  background: #ece9e1;
-  color: #191917;
-  --ink: #191917;
-  --ink-2: rgba(25, 25, 23, 0.74);
-  --ink-3: rgba(25, 25, 23, 0.68);
-  --rule: rgba(25, 25, 23, 0.16);
-  --rule-strong: rgba(25, 25, 23, 0.85);
-  --on-ink: #ece9e1;
-  --accent: #b9381a;
-  --on-accent: #fff8f3;
+  background: #e9ebf1;
+  color: #0e1120;
+  --ink: #0e1120;
+  --ink-2: rgba(14, 17, 32, 0.76);
+  --ink-3: rgba(14, 17, 32, 0.68);
+  --rule: rgba(14, 17, 32, 0.16);
+  --rule-strong: rgba(14, 17, 32, 0.85);
+  --on-ink: #e9ebf1;
+  --accent: #2236c4;
+  --on-accent: #ffffff;
+  --success: #2a6e43;
 }
 
 .section-contact ::selection {

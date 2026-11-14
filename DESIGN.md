@@ -19,7 +19,7 @@ Kept on purpose: all copy, every link, the project filter, the Netlify form and 
 
 ## Concept
 
-**An editorial catalogue with immersive details.** Warm paper and ink, one vermilion accent, numbered sections, hairline rules, and real product screenshots set like plates in a magazine.
+**An editorial catalogue with immersive details.** Cool paper white and blue-black ink, one ultramarine accent, numbered sections, hairline rules, and real product screenshots set like plates in a magazine.
 
 The signature element is the **name set across the full width with the portrait sitting inside it** (`Hazim [photo] Aqil`). The same wordmark closes the page in the footer.
 
@@ -29,15 +29,20 @@ All tokens live at the top of `css/style.css`.
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--bg` | `#f2f0ea` | `#11110f` | page |
-| `--bg-band` | `#e9e6de` | `#171715` | skills and education bands |
-| `--ink` | `#191917` | `#ece9e1` | headings, primary text |
-| `--ink-2` | `#48463f` | `#b9b5ab` | body text |
-| `--ink-3` | `#625f57` | `#8f8b81` | labels, meta |
-| `--accent` | `#b9381a` | `#ff6b3d` | numbers, active states, one figure per project |
-| `--rule` / `--rule-strong` | 14% / 85% ink | 12% / 80% ink | hairlines and section rules |
+| `--bg` | `#f6f7f9` | `#0c0f16` | page |
+| `--bg-band` | `#eceef3` | `#121621` | skills and education bands |
+| `--surface` | `#fdfdfe` | `#161b26` | form fields, raised bits |
+| `--ink` | `#0e1120` | `#e9ebf1` | headings, primary text |
+| `--ink-2` | `#3b4052` | `#b4b9c7` | body text |
+| `--ink-3` | `#585e70` | `#8b91a2` | labels, meta |
+| `--accent` | `#2a3fd9` | `#8796ff` | numbers, active states, role rotator, one figure per project |
+| `--on-accent` | `#ffffff` | `#0a0e2e` | text on the accent (selection) |
+| `--plate` | `#12151f` | `#171c28` | backdrop behind screenshots |
+| `--rule` / `--rule-strong` | 13% / 85% ink | 12% / 80% ink | hairlines and section rules |
 
-The contact section inverts the theme (ink background in light mode, paper in dark mode) as a full stop at the end of the page.
+Contrast (WCAG 2.1), checked on `--bg`, `--bg-band` and `--surface`: ink-3 is at least 5.5:1, accent at least 6.4:1 in both themes, white on the light accent is 7.5:1. The lowest pair is `--success` on the light band at 4.5:1.
+
+The contact section inverts the theme (blue-black `#0e1120` with the light-mode accent `#8796ff` in light mode; `#e9ebf1` with a deeper `#2236c4` accent in dark mode) as a full stop at the end of the page. It also overrides `--success` so the form status stays readable on the flipped background.
 
 ### Type
 
@@ -98,4 +103,12 @@ Compared against screenshots of HazStore and HazFocus, and the HazFocus app as i
 
 The portfolio avoids stat tiles, progress bars, rounded card grids and the two-button hero.
 
-One overlap to watch: the current HazFocus build also uses a warm off-white background, a high-contrast serif with italic accents and a red accent colour. Layout and structure differ, but at a glance the palette and display type are close. If the two should feel unrelated, change HazFocus (a cooler neutral, a sans display) rather than the portfolio, since the serif wordmark is the portfolio's signature.
+## Re-skin: cool paper and ultramarine (November 2026)
+
+All three projects had drifted into the same look: warm off-white or brown-black, a serif display with italic accents, mono labels and a red/orange accent. They were split apart:
+
+- **Portfolio** keeps the serif wordmark (it is now the only one of the three with a serif display), the 12-column grid and hairline rules, and moves to a cool, neutral paper white (`#f6f7f9`), blue-black ink and a single ultramarine accent. Dark mode is a blue-grey near-black, not brown-black.
+- HazStore goes bold commercial grotesk with black/white and a signal yellow.
+- HazFocus goes sans-only tool UI with cool slate and teal.
+
+Text faces stay Schibsted Grotesk and JetBrains Mono; neither is used by the other two. Avoid Inter, Geist, Space Grotesk, Archivo, IBM Plex Sans and condensed display faces here, and keep away from yellow and teal accents.
