@@ -119,7 +119,6 @@ export const education: EducationEntry[] = [
 ];
 
 export const courses: Course[] = [
-  { title: 'Microsoft Power BI Data Analyst', text: 'Data visualisation and reporting fundamentals.' },
   { title: 'AWS AI & Cloud Skills Day', text: 'Mini hackathons on AI and cloud services, run by the AWS Student Builder Group.' },
   { title: 'Cisco Networking Academy — IT Essentials', text: 'Computer hardware, networking and IT support basics.' },
   { title: 'Cisco CCNA — Introduction to Networks', text: 'Network basics, addressing and how devices communicate.' },
