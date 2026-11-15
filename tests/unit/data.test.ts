@@ -1,4 +1,5 @@
 // checks on the real content, so a typo in the data fails the tests instead of the live site
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { projects } from '@/data/projects';
 import { experienceAreas, skillGroups, education } from '@/data/profile';
@@ -88,5 +89,22 @@ describe('profile', () => {
   it('has a nav item for every home section and safe social links', () => {
     expect(navigation.map((item) => item.id)).toEqual(['home', 'about', 'skills', 'projects', 'education', 'experience', 'contact']);
     for (const social of socials) expect(social.href).toMatch(/^(https:\/\/|mailto:)/);
+  });
+});
+
+describe('netlify redirects', () => {
+  it('sends every old .html case study address to its project page', () => {
+    const file = readFileSync(new URL('../../public/_redirects', import.meta.url), 'utf8');
+    const rules = file
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#'))
+      .map((line) => line.split(/\s+/));
+
+    // a placeholder must be a whole path segment, or netlify redirects to the literal text
+    for (const [from, to] of rules) expect(`${from} ${to}`).not.toMatch(/:[a-z]+\./);
+    for (const slug of slugs) {
+      expect(rules, slug).toContainEqual([`/projects/${slug}.html`, `/projects/${slug}/`, '301']);
+    }
   });
 });

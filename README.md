@@ -195,15 +195,25 @@ These are local results, measured on 16 November 2026 with Lighthouse 13.6 in he
 
 ## Build and deploy
 
-`netlify.toml` holds the whole Netlify setup:
+The Netlify setup is split so it works for both kinds of deploy:
 
-- **Build:** `npm run build`, publish `dist`, Node 22.
-- **Redirects:** the old `/projects/<name>.html` and `/index.html` addresses go permanently to the new clean ones.
-- **Headers:** `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` on every page, and long caching for the hashed files in `/_astro/`. Astro adds a Content Security Policy with hashes for its inline scripts to every page; `connect-src` allows only this site and `api.github.com`.
-- **Forms:** the visible form is a React island, so `Contact.astro` also renders a hidden copy with the same name and fields (`data-netlify="true"`) for Netlify to detect at deploy time. Messages appear under **Forms** in the Netlify dashboard. Email alerts are set under **Site configuration → Notifications → Form submission notifications**.
+- **`netlify.toml`:** build settings (`npm run build`, publish `dist`, Node 22). Netlify only reads it when it builds from the Git repository.
+- **`public/_redirects`:** the old `/projects/<name>.html` and `/index.html` addresses go permanently to the new clean ones.
+- **`public/_headers`:** `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` on every page, and long caching for the hashed files in `/_astro/`. Astro adds a Content Security Policy with hashes for its inline scripts to every page; `connect-src` allows only this site and `api.github.com`.
+- **Forms:** the visible form is a React island, so `Contact.astro` also renders a hidden copy with the same name and fields (`data-netlify="true"`) for Netlify to detect at deploy time. Form detection must be on under **Forms** in the Netlify dashboard. Messages appear there, and email alerts are set under **Site configuration → Notifications → Form submission notifications**.
 - **404:** `dist/404.html` is served for any unknown address.
 
-To deploy, connect the repository in Netlify, or run `npx netlify deploy --prod` from a logged-in Netlify CLI.
+Everything in `public/` is copied into `dist/`, so the redirects and headers apply however the site is deployed.
+
+**Drag and drop (how this site is deployed):**
+
+```bash
+npm run build
+```
+
+Then drop the `dist` folder (not the project folder) onto **Deploys** in the Netlify dashboard.
+
+**From Git:** connect the repository in Netlify, and it builds with the settings in `netlify.toml`.
 
 ## Projects featured
 

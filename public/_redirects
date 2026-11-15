@@ -1,0 +1,15 @@
+# old single-file case study urls point to the new project pages.
+# netlify only fills in a :placeholder when it is a whole path segment, so ":slug.html"
+# cannot work and every project is listed instead. tests/unit/data.test.ts checks this
+# list matches src/data/projects.ts.
+# this file is copied into dist/, so it also works for drag-and-drop deploys.
+/projects/streamix.html   /projects/streamix/   301
+/projects/wavemusic.html  /projects/wavemusic/  301
+/projects/hazstore.html   /projects/hazstore/   301
+/projects/hazfocus.html   /projects/hazfocus/   301
+/projects/hazcast.html    /projects/hazcast/    301
+/projects/yes-halal.html  /projects/yes-halal/  301
+/projects/clipnest.html   /projects/clipnest/   301
+/projects/kite.html       /projects/kite/       301
+/projects/islandbar.html  /projects/islandbar/  301
+/index.html               /                     301
