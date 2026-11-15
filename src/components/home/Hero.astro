@@ -1,0 +1,125 @@
+---
+// the opening of the home page: the name as a wordmark with the portrait set into it,
+// who i am, what i build, what i am looking for, and three actions.
+import { Image } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import ExternalLink from '@/components/ui/ExternalLink.astro';
+import portrait from '@/assets/images/people/portrait-hero.webp';
+import { person, socials } from '@/data/site';
+import { projects } from '@/data/projects';
+import { education } from '@/data/profile';
+import { totals, projectPath } from '@/lib/projects';
+
+const sum = totals(projects);
+const cgpa = education[0]?.badge.value;
+---
+
+<section class="hero" id="home" aria-labelledby="hero-name">
+  <div class="container">
+    <!-- top line of small facts, like the masthead of a magazine -->
+    <ul class="hero-meta">
+      <li class="hero-meta-item">
+        <span class="meta-key">Local time</span>
+        <time id="local-time">Malaysia, GMT+8</time>
+      </li>
+      <li class="hero-meta-item"><span class="meta-key">Based in</span> {person.location}</li>
+      <li class="hero-meta-item"><span class="meta-key">Studying</span> Software Engineering, GMI</li>
+      <li class="hero-meta-item available-badge">
+        <span class="meta-key"><span class="dot" aria-hidden="true"></span>Available for internship</span>
+        11 Jan – 14 May 2027
+      </li>
+    </ul>
+
+    <!-- the name is the main visual of the page -->
+    <h1 class="hero-name" id="hero-name">
+      <span class="hero-line"><span class="hero-word">{person.firstName}</span></span>
+      <span class="hero-line hero-line-2">
+        <span class="hero-portrait" aria-hidden="true">
+          <Image src={portrait} alt="" widths={[180, 360]} sizes="(max-width: 700px) 30vw, 180px" priority />
+        </span>
+        <span class="hero-word"><em>{person.lastName}</em></span>
+      </span>
+    </h1>
+
+    <div class="hero-grid">
+      <div class="hero-lede">
+        <p class="hero-role">
+          <span class="hero-role-line">Software Engineering Student</span>
+          <span class="hero-role-line hero-role-accent">Aspiring Front-End Developer</span>
+        </p>
+
+        <ul class="social-list">
+          {
+            socials.map((social) => (
+              <li>
+                {social.icon === 'mail' ? (
+                  <a class="social-link" href={social.href}>
+                    <Icon name={social.icon} />
+                    <span>{social.label}</span>
+                  </a>
+                ) : (
+                  <ExternalLink class="social-link" href={social.href}>
+                    <Icon name={social.icon} />
+                    <span>{social.label}</span>
+                  </ExternalLink>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="hero-text">
+        <p class="hero-intro">
+          Front-end is my focus. I build responsive, accessible web interfaces with React, TypeScript
+          and JavaScript, from <a href={projectPath('streamix')}><strong>Streamix</strong></a>, a tested
+          TypeScript streaming app, to <a href={projectPath('wavemusic')}><strong>WaveMusic</strong></a>, a
+          music player with no framework at all. I'm a Software Engineering student at German-Malaysian
+          Institute, looking for an {person.availability.weeks}-week front-end internship from
+          {' '}{person.availability.label}.
+        </p>
+
+        <!-- the three main actions, set like a table of contents -->
+        <ul class="hero-buttons">
+          <li>
+            <a class="hero-action" href="#projects">
+              <span class="hero-action-num" aria-hidden="true">A</span>
+              <span class="hero-action-label">Explore my work</span>
+              <Icon name="arrow-down" />
+            </a>
+          </li>
+          <li>
+            <!-- opens the pdf in the browser; the header button downloads it -->
+            <a class="hero-action" href={person.resume.href} target="_blank" rel="noopener">
+              <span class="hero-action-num" aria-hidden="true">B</span>
+              <span class="hero-action-label"
+                >View resume <span class="hero-action-note">PDF</span><span class="visually-hidden"
+                  >, opens in a new tab</span
+                ></span
+              >
+              <Icon name="arrow" />
+            </a>
+          </li>
+          <li>
+            <a class="hero-action" href="#contact">
+              <span class="hero-action-num" aria-hidden="true">C</span>
+              <span class="hero-action-label">Contact me</span>
+              <Icon name="arrow-right" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- real numbers from the project data, written as a sentence -->
+    <p class="hero-ledger">
+      <span class="meta-key">So far</span>
+      <span class="ledger-text">
+        <b>{sum.projects}</b> projects built across web, Windows and mobile,
+        <b>{sum.vitest + sum.dotnet}</b> automated tests written
+        <span class="ledger-aside">({sum.vitest} Vitest + {sum.dotnet} .NET)</span>,
+        <b>{sum.liveDemos}</b> live demos, and a <b>{cgpa}</b> diploma CGPA.
+      </span>
+    </p>
+  </div>
+</section>

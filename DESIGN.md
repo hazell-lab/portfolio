@@ -19,7 +19,7 @@ Kept on purpose: all copy, every link, the project filter, the Netlify form and 
 
 ## Concept
 
-**An editorial catalogue with immersive details.** Cool paper white and blue-black ink, one ultramarine accent, numbered sections, hairline rules, and real product screenshots set like plates in a magazine.
+**An editorial catalogue with immersive details.** Warm off-white paper and charcoal ink, one restrained cobalt accent, numbered sections, hairline rules, and real product screenshots set like plates in a magazine.
 
 The signature element is the **name set across the full width with the portrait sitting inside it** (`Hazim [photo] Aqil`). The same wordmark closes the page in the footer.
 
@@ -29,20 +29,21 @@ All tokens live at the top of `css/style.css`.
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--bg` | `#f6f7f9` | `#0c0f16` | page |
-| `--bg-band` | `#eceef3` | `#121621` | skills and education bands |
-| `--surface` | `#fdfdfe` | `#161b26` | form fields, raised bits |
-| `--ink` | `#0e1120` | `#e9ebf1` | headings, primary text |
-| `--ink-2` | `#3b4052` | `#b4b9c7` | body text |
-| `--ink-3` | `#585e70` | `#8b91a2` | labels, meta |
-| `--accent` | `#2a3fd9` | `#8796ff` | numbers, active states, role rotator, one figure per project |
-| `--on-accent` | `#ffffff` | `#0a0e2e` | text on the accent (selection) |
-| `--plate` | `#12151f` | `#171c28` | backdrop behind screenshots |
+| `--bg` | `#f3f1ec` | `#141416` | page |
+| `--bg-band` | `#eae7e0` | `#1b1b1e` | skills and education bands |
+| `--surface` | `#fbfaf7` | `#202024` | form fields, raised bits, case study cards |
+| `--ink` | `#1b1b1d` | `#ece9e3` | headings, primary text |
+| `--ink-2` | `#45444a` | `#bdbab3` | body text |
+| `--ink-3` | `#5f5d63` | `#94918b` | labels, meta |
+| `--accent` | `#2a44c4` | `#8fa0ff` | numbers, active states, links in use, field errors |
+| `--on-accent` | `#ffffff` | `#0d1340` | text on the accent (selection) |
+| `--plate` | `#18181b` | `#1e1e22` | backdrop behind screenshots |
+| `--portrait-bg` | `#e2ded6` | `#d3cec5` | plain backdrop behind the hero portrait cut-out |
 | `--rule` / `--rule-strong` | 13% / 85% ink | 12% / 80% ink | hairlines and section rules |
 
-Contrast (WCAG 2.1), checked on `--bg`, `--bg-band` and `--surface`: ink-3 is at least 5.5:1, accent at least 6.4:1 in both themes, white on the light accent is 7.5:1. The lowest pair is `--success` on the light band at 4.5:1.
+Contrast (WCAG 2.1): every text colour above passes AA (4.5:1) on `--bg`, `--bg-band` and `--surface` in both themes, including the accent.
 
-The contact section inverts the theme (blue-black `#0e1120` with the light-mode accent `#8796ff` in light mode; `#e9ebf1` with a deeper `#2236c4` accent in dark mode) as a full stop at the end of the page. It also overrides `--success` so the form status stays readable on the flipped background.
+The contact section inverts the theme (charcoal `#1b1b1d` with the lighter cobalt `#8fa0ff` in light mode; warm white `#ece9e3` with the deeper `#2a44c4` in dark mode) as a full stop at the end of the page. It also overrides `--success` so the form status stays readable on the flipped background.
 
 ### Type
 
@@ -67,12 +68,9 @@ The contact section inverts the theme (blue-black `#0e1120` with the light-mode 
 | Section rule draws in from the left | marks the start of each chapter |
 | Reveal on scroll | paces long content |
 | About photo turns from grey to colour | pulls attention to the one personal image |
-| Screenshot parallax (≥768px) | gives depth to product plates without 3D |
-| Cursor label over screenshots (fine pointers) | tells you the image is a link; the same links are always visible as buttons |
 | Header hides on scroll down | more room for content; returns on scroll up or keyboard focus |
 | Progress ring on back-to-top | shows where you are in a long page |
 | Circular theme wipe | connects the change to the button you pressed |
-| Name words lean apart with the pointer (fine pointers) | a small sign of life in the hero, no more than 10px |
 | Filter cross-fade (view transitions) | the list changes without a jump |
 | Contents list follows your scroll | shows which project you are reading and lets you jump to any of the nine |
 
@@ -83,7 +81,7 @@ All of it is disabled under `prefers-reduced-motion: reduce`.
 What changed after a second pass:
 
 - the hero buttons became an A/B/C list of actions, set in the display face, instead of a pair of pill buttons
-- the four stat boxes became one sentence ("9 projects shipped… 159 automated tests…"); dashboards use stat tiles, a portfolio should read like a page
+- the four stat boxes became one sentence ("9 projects shipped… 262 automated tests…"); dashboards use stat tiles, a portfolio should read like a page
 - the made-up "edition" label in the masthead became a live local time (Malaysia, GMT+8)
 - about paragraphs carry margin labels: now, practice, next, so they read as a short development story
 - a numbered contents list under the project filters, with a highlight for the project in view
@@ -112,3 +110,40 @@ All three projects had drifted into the same look: warm off-white or brown-black
 - HazFocus goes sans-only tool UI with cool slate and teal.
 
 Text faces stay Schibsted Grotesk and JetBrains Mono; neither is used by the other two. Avoid Inter, Geist, Space Grotesk, Archivo, IBM Plex Sans and condensed display faces here, and keep away from yellow and teal accents.
+
+Update, later in November 2026: the cool blue-black palette above was replaced by warm off-white and charcoal with a restrained cobalt (see the token table). The layout, type and motion did not change.
+
+## Case studies (November 2026)
+
+Originally four projects had their own page; since 2.0 every project has one, built from `src/data/projects.ts` (see the 2.0 notes below).
+
+- **Shared shell**: the same layout, header, footer and scripts as the home page (`src/layouts/BaseLayout.astro`). "Projects" stays marked as the current page. The reading layout lives in `src/styles/case-study.css`.
+- **Structure**: intro with a facts table (role, type, stack, one honest number), a screenshot plate, then a sticky "on this page" list beside numbered sections: overview, features, architecture, challenges and decisions (as pairs), testing, screenshots, what I learned.
+- **Content rules**: every fact comes from the project's README, docs or source code, or from my resume. Test counts are the ones I ran on 14 November 2026. Yes, Halal says which parts were mine, and says plainly that it has no automated test suite. Screenshots are real captures of the apps (`src/assets/images/case/`).
+- **Links back**: each featured card on the home page has a "Case study" link, each skill group lists the projects it was used in, and single-project experience cards link straight to the case study.
+
+## Contact form
+
+The form validates each field on submit, marks bad fields with `aria-invalid` and an error message linked through `aria-describedby`, moves focus to the first problem, and clears the error as soon as it is fixed. While sending, the button is disabled and reads "Sending...". It only says the message was sent when the server answers with a success status; anything else shows an error with my email address.
+
+## Portfolio 2.0 (November 2026)
+
+The site moved from hand-written HTML to Astro with typed data, without changing the look.
+
+- **Removed motion**: the rotating role line, screenshot parallax, the cursor label and the pointer lean on the name. They moved all the time or only decorated, and the brief asked for purposeful motion only. The hero title is now two fixed lines: "Software Engineering Student" and, in the accent italic, "Aspiring Front-End Developer".
+- **Kept motion**: the name intro, the section reveals, the header tuck, the back-to-top ring, the circular theme wipe and the filter cross-fade. All of them still switch off under reduced motion.
+- **A broken rule fixed**: the old stylesheet had a stray character inside the hero fade-in rule, so browsers dropped the whole rule and the hero meta, grid and ledger never faded in. It is fixed in `src/styles/motion.css`.
+- **Every project has a page**: the case study layout now comes from one template, so the five projects that only had a card also get a page. Sections without real content are left out, and the numbering follows.
+- **New parts, same tokens**: the previous/next pager, related projects, the screenshot lightbox and the 404 page only use the existing colours, type scale and hairlines.
+- **Contact form**: errors appear on submit and clear as each field is fixed. There is deliberately no check when a field loses focus, because an error appearing there pushed the send button away mid-click (found by the end to end tests).
+- **Logo link name**: the visible name now starts the link's accessible name, with the extra words as hidden text, so voice control users can say what they see.
+
+## Front-end focus (November 2026)
+
+- **Hero motion trimmed**: the name still rises out of its mask, but the intro text and the three actions are no longer faded in. They are the main content, and hiding them delayed the largest paint on phones.
+- **Hero actions**: Explore my work, View resume (opens the PDF in a new tab; the header button still downloads it) and Contact me.
+- **Skills as footnotes**: each skill carries small mono numbers that match the project numbers (01 to 09), plus a boxed `site` tag when this portfolio uses it. The supporting tier is set a step smaller so the front-end tier reads first.
+- **Project groups**: featured cards keep the large three-composition layout. The rest are split into "More projects" and "Supporting desktop work", each with a short note that hides while a filter is on.
+- **Repository panel**: a quiet band-coloured box under the overview, using the existing hairline, mono labels and link style. It never shows a spinner, only a short line of text while loading.
+- **Islands keep the markup**: the React components render the same classes as the old Astro markup, so the CSS did not need a rewrite. `astro-island` is set to `display: contents` so the wrapper never affects layout.
+

@@ -1,0 +1,65 @@
+/* =========================
+   15. back to top
+========================= */
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.35);
+  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out),
+              visibility var(--dur-2), color var(--dur-1) ease;
+}
+
+/* javascript adds this class after you scroll down */
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  color: var(--accent);
+}
+
+.back-to-top > .icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* the ring fills up as you scroll */
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.progress-track {
+  stroke: var(--rule);
+}
+
+.progress-bar {
+  stroke: var(--accent);
+  stroke-dasharray: 138.23;
+  stroke-dashoffset: calc(138.23 * (1 - var(--progress, 0)));
+}

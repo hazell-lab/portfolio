@@ -1,0 +1,182 @@
+/* =========================
+   9. skills
+========================= */
+
+.section-skills {
+  background: var(--bg-band);
+}
+
+.skills-table {
+  border-top: var(--hairline);
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+  align-items: baseline;
+  padding: clamp(20px, 2.4vw, 32px) 0;
+  border-bottom: var(--hairline);
+  transition: background-color var(--dur-2) ease;
+}
+
+.skill-head {
+  grid-column: 1 / span 4;
+  display: grid;
+  grid-template-columns: minmax(2.2em, 1fr) 3fr;
+  align-items: baseline;
+}
+
+.skill-head > :not(.skill-index) {
+  grid-column: 2;
+}
+
+.skill-note {
+  margin-top: var(--space-2);
+  max-width: 32ch;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+.skill-cat {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: transform var(--dur-2) var(--ease-out), color var(--dur-1) ease;
+}
+
+.skill-index {
+  grid-row: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  color: var(--accent);
+}
+
+.skill-list {
+  grid-column: 5 / span 8;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 0;
+  font-size: var(--fs-lg);
+  color: var(--ink-2);
+}
+
+/* items read like a sentence, split by thin slashes */
+.skill-list li:not(:last-child)::after {
+  content: "/";
+  margin: 0 0.55em;
+  color: var(--rule-strong);
+  opacity: 0.35;
+}
+
+/* small project numbers after a skill, like footnotes */
+.skill-refs {
+  display: inline-flex;
+  gap: 3px;
+  margin-left: 5px;
+  vertical-align: super;
+  font-family: var(--font-mono);
+  font-size: 0.58em;
+  line-height: 1;
+  color: var(--ink-2);
+}
+
+.skill-here,
+.skill-here-key {
+  padding: 1px 4px;
+  border: 1px solid currentcolor;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+.skill-here-key {
+  font-size: 0.75em;
+}
+
+/* the two tiers: the front-end focus first and full size, the rest quieter */
+.skills-tier + .skills-tier {
+  margin-top: var(--space-7);
+}
+
+.skills-tier-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-base, 1rem);
+  font-weight: 500;
+}
+
+.skills-tier-supporting .skill-cat {
+  font-size: var(--fs-lg);
+}
+
+.skills-tier-supporting .skill-list {
+  font-size: var(--fs-base, 1rem);
+}
+
+@media (hover: hover) {
+  .skill-row:hover .skill-cat {
+    transform: translateX(8px);
+    color: var(--accent);
+  }
+
+  .skill-row:hover .skill-list {
+    color: var(--ink);
+  }
+}
+
+/* which projects each group of skills was used in */
+.skill-used {
+  grid-column: 5 / span 8;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  margin-top: calc(var(--space-3) * -1);
+  font-size: var(--fs-sm);
+}
+
+.skill-used .meta-key {
+  margin-right: 2px;
+}
+
+.skill-used a span {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--ink-2);
+}
+
+.skill-used a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-1) ease, text-decoration-color var(--dur-1) ease;
+}
+
+.skill-used a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.skills-coursework {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  align-items: baseline;
+  margin-top: var(--space-6);
+  color: var(--ink-2);
+}
+
+/* the spoken languages line sits close under the coursework line */
+.skills-coursework + .skills-coursework {
+  margin-top: var(--space-3);
+}

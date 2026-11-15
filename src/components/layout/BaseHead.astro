@@ -1,0 +1,87 @@
+---
+// everything inside <head>: meta tags, social previews, fonts and the theme script.
+import serifFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
+import textFont from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  /** path of the social preview image inside /public */
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  /** structured data for search engines */
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = '/og/og-default.png',
+  imageAlt = 'Hazim Aqil, Software Engineering Student and Aspiring Front-End Developer',
+  type = 'website',
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content="Hazim Aqil" />
+{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+
+<!-- link previews on linkedin, whatsapp, x and others -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Hazim Aqil" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
+<meta property="og:locale" content="en_MY" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#141416" media="(prefers-color-scheme: dark)" />
+<meta name="color-scheme" content="light dark" />
+
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- the two faces used above the fold, self-hosted so nothing waits on another server -->
+<link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={textFont} as="font" type="font/woff2" crossorigin />
+
+<!-- set the theme before anything paints, so there is no flash.
+     same rules as src/lib/theme.ts, kept tiny because it blocks rendering -->
+<script is:inline>
+  (function () {
+    let theme = null;
+    try {
+      theme = localStorage.getItem('theme');
+    } catch {
+      // storage is blocked, fall back to the system setting
+    }
+    if (theme !== 'light' && theme !== 'dark') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.classList.add('js');
+  })();
+</script>
+
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

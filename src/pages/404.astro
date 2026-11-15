@@ -1,0 +1,35 @@
+---
+// shown by netlify for any address that does not exist
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { projects } from '@/data/projects';
+import { projectPath } from '@/lib/projects';
+---
+
+<BaseLayout
+  page="not-found"
+  title="Page not found | Hazim Aqil"
+  description="This page does not exist. Go back to the home page or open one of the projects."
+  noindex
+>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <div class="container">
+      <p class="meta-key">Error 404</p>
+      <h1 class="not-found-title" id="not-found-title">This page <em>does not exist.</em></h1>
+      <p class="not-found-text">The link may be old or mistyped. Here are some places to go instead.</p>
+      <div class="not-found-actions">
+        <a class="btn btn-primary" href="/">Back to the home page <Icon name="arrow-right" /></a>
+        <a class="link-arrow" href="/#projects">See all projects <Icon name="arrow-right" /></a>
+      </div>
+      <ul class="not-found-list" aria-label="Projects">
+        {
+          projects.map((project) => (
+            <li>
+              <a href={projectPath(project.slug)}>{project.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

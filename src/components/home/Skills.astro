@@ -1,0 +1,118 @@
+---
+// skills in two tiers: the front-end work i focus on first, then tools and supporting knowledge.
+// no percentage bars: each skill points at the numbered projects where it was used.
+import SectionHead from '@/components/ui/SectionHead.astro';
+import { coursework, skillGroups, spokenLanguages } from '@/data/profile';
+import { projects } from '@/data/projects';
+import { getProject, pad, projectPath } from '@/lib/projects';
+import type { SkillGroup } from '@/types/content';
+
+const tiers = [
+  { id: 'core', title: 'Front-end skills', groups: skillGroups.filter((group) => group.tier === 'core') },
+  {
+    id: 'supporting',
+    title: 'Tools and supporting knowledge',
+    groups: skillGroups.filter((group) => group.tier === 'supporting'),
+  },
+];
+
+const numberOf = (slug: string) => projects.findIndex((project) => project.slug === slug) + 1;
+
+// every project a group was used in, in the same order as the projects section
+const projectsOf = (group: SkillGroup) =>
+  [...new Set(group.items.flatMap((item) => item.projects ?? []))]
+    .sort((a, b) => numberOf(a) - numberOf(b))
+    .map((slug) => getProject(projects, slug));
+
+// footnote numbers read in order, like 02 03 05
+const sorted = (slugs: string[] = []) => [...slugs].sort((a, b) => numberOf(a) - numberOf(b));
+
+let letter = 0;
+---
+
+<section class="section section-skills" id="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <SectionHead num="02" eyebrow="Skills" titleId="skills-title">
+      Technologies <em>I work with</em>
+      <Fragment slot="subtitle">
+        Front-end skills first. The small numbers point to the projects where I used each one, and
+        <span class="skill-here-key" aria-hidden="true">site</span> marks what this portfolio itself is built
+        with.
+      </Fragment>
+    </SectionHead>
+
+    {
+      tiers.map((tier) => (
+        <div class:list={['skills-tier', `skills-tier-${tier.id}`]}>
+          <h3 class="skills-tier-title reveal">
+            <span class="meta-key">{tier.id === 'core' ? 'Focus' : 'Also'}</span> {tier.title}
+          </h3>
+          <div class="skills-table">
+            {tier.groups.map((group) => {
+              const used = projectsOf(group);
+              const index = String.fromCharCode(65 + letter++);
+              return (
+                <div class="skill-row reveal">
+                  <div class="skill-head">
+                    <span class="skill-index" aria-hidden="true">
+                      {index}
+                    </span>
+                    <h4 class="skill-cat">{group.label}</h4>
+                    <p class="skill-note">{group.note}</p>
+                  </div>
+                  <ul class="skill-list">
+                    {group.items.map((item) => (
+                      <li>
+                        {item.name}
+                        {(item.projects?.length || item.here) && (
+                          <span class="skill-refs">
+                            {sorted(item.projects).map((slug) => (
+                              <span aria-hidden="true">{pad(numberOf(slug))}</span>
+                            ))}
+                            {item.here && (
+                              <span class="skill-here" aria-hidden="true">
+                                site
+                              </span>
+                            )}
+                            <span class="visually-hidden">
+                              {[
+                                item.projects?.length &&
+                                  `used in ${item.projects.map((slug) => getProject(projects, slug).name).join(', ')}`,
+                                item.here && 'used on this site',
+                              ]
+                                .filter(Boolean)
+                                .join(', ')}
+                            </span>
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  {used.length > 0 && (
+                    <p class="skill-used">
+                      <span class="meta-key">Used in</span>
+                      {used.map((project) => (
+                        <a href={projectPath(project.slug)}>
+                          <span aria-hidden="true">{pad(numberOf(project.slug))}</span> {project.name}
+                        </a>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))
+    }
+
+    <p class="skills-coursework reveal">
+      <span class="meta-key">Also covered in coursework</span>
+      {coursework.join(' · ')}
+    </p>
+    <p class="skills-coursework reveal">
+      <span class="meta-key">Spoken languages</span>
+      {spokenLanguages.join(' · ')}
+    </p>
+  </div>
+</section>

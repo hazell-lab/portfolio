@@ -1,0 +1,61 @@
+---
+// the home page: every section reads its content from src/data
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/home/Hero.astro';
+import About from '@/components/home/About.astro';
+import Skills from '@/components/home/Skills.astro';
+import Projects from '@/components/home/Projects.astro';
+import Education from '@/components/home/Education.astro';
+import Experience from '@/components/home/Experience.astro';
+import Contact from '@/components/home/Contact.astro';
+import { person, socials } from '@/data/site';
+import { education } from '@/data/profile';
+
+const site = Astro.site?.href ?? '/';
+const diploma = education[0];
+
+// structured data so search engines know who the page is about
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${site}#person`,
+      name: person.name,
+      jobTitle: person.title,
+      description: person.summary,
+      url: site,
+      image: new URL('/assets/images/profile.jpg', site).href,
+      email: `mailto:${person.email}`,
+      address: { '@type': 'PostalAddress', addressLocality: 'Melaka', addressCountry: 'MY' },
+      ...(diploma && { alumniOf: { '@type': 'CollegeOrUniversity', name: diploma.place } }),
+      knowsAbout: ['Front-end development', 'React', 'TypeScript', 'JavaScript', 'Responsive design', 'C#', '.NET', 'WPF'],
+      sameAs: socials.filter((social) => social.icon !== 'mail').map((social) => social.href),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site}#website`,
+      name: 'Hazim Aqil',
+      url: site,
+      inLanguage: 'en-MY',
+      publisher: { '@id': `${site}#person` },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  page="home"
+  title="Hazim Aqil | Software Engineering Student & Aspiring Front-End Developer"
+  description="Portfolio of Hazim Aqil, a Software Engineering student at German-Malaysian Institute who builds responsive, accessible web apps with React and TypeScript, plus native Windows tools in C# and .NET."
+  jsonLd={jsonLd}
+  current="home"
+>
+  <Hero />
+  <About />
+  <Skills />
+  <Projects />
+  <Education />
+  <Experience />
+  <Contact />
+</BaseLayout>

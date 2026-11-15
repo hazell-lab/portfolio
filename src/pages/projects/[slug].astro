@@ -1,0 +1,262 @@
+---
+// one page per project, built from src/data/projects.ts.
+// sections only appear when the project has content for them, and the numbers follow.
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CaseIntro from '@/components/project/CaseIntro.astro';
+import CaseSection from '@/components/project/CaseSection.astro';
+import CaseGallery from '@/components/project/CaseGallery.astro';
+import CasePager from '@/components/project/CasePager.astro';
+import RichText from '@/components/ui/RichText.astro';
+import { RepoActivity } from '@/components/react/projects/RepoActivity';
+import { projects } from '@/data/projects';
+import { projectPath } from '@/lib/projects';
+import { stripInline } from '@/lib/inline';
+import type { Project } from '@/types/content';
+
+export const getStaticPaths = (() =>
+  projects.map((project, i) => ({
+    params: { slug: project.slug },
+    props: { project, index: i + 1 },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const hasDecisions = Boolean(project.decisions?.length) || Boolean(project.limits);
+const hasGallery = Boolean(project.gallery?.images.length);
+
+// the sections this project has, in page order
+const sections = [
+  { id: 'overview', title: 'Overview', show: true },
+  { id: 'team', title: 'Team and my part', show: Boolean(project.team) },
+  { id: 'features', title: 'Features', show: project.features.length > 0 },
+  { id: 'front-end', title: 'How the front end works', show: Boolean(project.frontEnd?.length) },
+  { id: 'architecture', title: 'Architecture', show: Boolean(project.architecture) },
+  { id: 'decisions', title: 'Challenges and decisions', show: hasDecisions },
+  { id: 'testing', title: 'Testing', show: true },
+  { id: 'screens', title: 'Screenshots', show: hasGallery },
+  { id: 'learned', title: 'What I learned', show: project.learned.length > 0 },
+].filter((section) => section.show);
+
+const num = (id: string) => sections.findIndex((section) => section.id === id) + 1;
+
+const site = Astro.site?.href ?? '/';
+const pageUrl = new URL(projectPath(project.slug), site).href;
+const description = stripInline(project.lede);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: site },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: new URL('/#projects', site).href },
+        { '@type': 'ListItem', position: 3, name: project.name, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'CreativeWork',
+      name: project.name,
+      description,
+      url: pageUrl,
+      author: { '@type': 'Person', name: 'Hazim Aqil', url: site },
+      keywords: project.stack.join(', '),
+      ...(project.links.code && { codeRepository: project.links.code }),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  page="project"
+  title={`${project.name}, ${project.kind.toLowerCase()} | Hazim Aqil`}
+  description={description}
+  type="article"
+  jsonLd={jsonLd}
+  current="projects"
+>
+  <CaseIntro project={project} index={index} />
+
+  <div class="container case-body">
+    <nav class="case-toc" aria-label="On this page">
+      <p class="meta-key">On this page</p>
+      <ol>
+        {
+          sections.map((section) => (
+            <li>
+              <a href={`#${section.id}`}>{section.title}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="case-content">
+      <CaseSection id="overview" num={num('overview')} title="Overview">
+        {project.overview.map((text) => <RichText text={text} />)}
+        {
+          project.motivation && (
+            <Fragment>
+              <h3 class="case-subhead">Why I built it</h3>
+              {project.motivation.map((text) => (
+                <RichText text={text} />
+              ))}
+            </Fragment>
+          )
+        }
+        {/* live repository details from the github api, a plain link until it loads */}
+        {project.links.code && <RepoActivity client:visible url={project.links.code} projectName={project.name} />}
+      </CaseSection>
+
+      {
+        project.team && (
+          <CaseSection id="team" num={num('team')} title="Team and my part">
+            <p>
+              This was a team project with {project.team.size} people. The list below is only the work I was
+              responsible for.
+            </p>
+            <ul class="case-list">
+              {project.team.contribution.map((item) => (
+                <RichText as="li" text={item} />
+              ))}
+            </ul>
+          </CaseSection>
+        )
+      }
+
+      {
+        project.features.length > 0 && (
+          <CaseSection id="features" num={num('features')} title="Features">
+            <ul class="case-list">
+              {project.features.map((feature) => (
+                <li>
+                  <strong>{feature.title}</strong>: <RichText as="span" text={feature.text} />
+                </li>
+              ))}
+            </ul>
+          </CaseSection>
+        )
+      }
+
+      {
+        project.frontEnd && project.frontEnd.length > 0 && (
+          <CaseSection id="front-end" num={num('front-end')} title="How the front end works">
+            <ul class="case-list">
+              {project.frontEnd.map((item) => (
+                <RichText as="li" text={item} />
+              ))}
+            </ul>
+          </CaseSection>
+        )
+      }
+
+      {
+        project.architecture && (
+          <CaseSection id="architecture" num={num('architecture')} title="Architecture">
+            {project.architecture.intro.map((text) => (
+              <RichText text={text} />
+            ))}
+            {project.architecture.tree && (
+              <pre class="case-tree" tabindex="0" aria-label="Folder structure">{project.architecture.tree}</pre>
+            )}
+            {project.architecture.table && (
+              <table class="case-table">
+                <caption class="visually-hidden">Tools used in {project.name} and what each one does</caption>
+                <tbody>
+                  {project.architecture.table.map((row) => (
+                    <tr>
+                      <th scope="row">{row.label}</th>
+                      <td>
+                        <RichText as="span" text={row.value} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </CaseSection>
+        )
+      }
+
+      {
+        hasDecisions && (
+          <CaseSection id="decisions" num={num('decisions')} title="Challenges and decisions">
+            {project.decisions && (
+              <div class="case-pairs">
+                {project.decisions.map((pair) => (
+                  <article class="case-pair">
+                    <div>
+                      <h3>Challenge</h3>
+                      <RichText text={pair.challenge} />
+                    </div>
+                    <div>
+                      <h3>Decision</h3>
+                      <RichText text={pair.decision} />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+            {project.limits && (
+              <aside class="case-callout" aria-label="Known limits">
+                <p class="meta-key">Known limits</p>
+                <RichText text={project.limits} />
+              </aside>
+            )}
+          </CaseSection>
+        )
+      }
+
+      <CaseSection id="testing" num={num('testing')} title="Testing">
+        {project.testing.intro.map((text) => <RichText text={text} />)}
+        {
+          project.testing.stats && (
+            <div class="case-stats">
+              {project.testing.stats.map((stat) => (
+                <p class="case-stat">
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </p>
+              ))}
+            </div>
+          )
+        }
+        {project.testing.notes?.map((text) => <RichText text={text} />)}
+      </CaseSection>
+
+      {
+        project.gallery && hasGallery && (
+          <CaseSection id="screens" num={num('screens')} title="Screenshots">
+            <p>{project.gallery.source}</p>
+            <CaseGallery images={project.gallery.images} projectName={project.name} />
+          </CaseSection>
+        )
+      }
+
+      <CaseSection id="learned" num={num('learned')} title="What I learned">
+        <ul class="case-list">
+          {project.learned.map((item) => <RichText as="li" text={item} />)}
+        </ul>
+        {
+          project.next && project.next.length > 0 && (
+            <Fragment>
+              <h3 class="case-subhead">What I would add next</h3>
+              <ul class="case-list">
+                {project.next.map((item) => (
+                  <RichText as="li" text={item} />
+                ))}
+              </ul>
+            </Fragment>
+          )
+        }
+      </CaseSection>
+    </div>
+  </div>
+
+  <CasePager slug={project.slug} />
+</BaseLayout>

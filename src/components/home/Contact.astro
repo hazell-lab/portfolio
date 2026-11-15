@@ -1,0 +1,79 @@
+---
+// contact details and the netlify form.
+// the form itself is a react island (src/components/react/contact/ContactForm.tsx).
+// messages show up in the netlify dashboard > your site > forms.
+import Icon from '@/components/ui/Icon.astro';
+import ExternalLink from '@/components/ui/ExternalLink.astro';
+import { person, socials } from '@/data/site';
+import { ContactForm } from '@/components/react/contact/ContactForm';
+
+const links = socials.filter((social) => social.icon !== 'mail');
+---
+
+<section class="section section-contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="section-num" aria-hidden="true">06</span>
+      <p class="section-eyebrow">Contact</p>
+    </header>
+
+    <h2 class="contact-title reveal" id="contact-title">Let's get <em>in touch.</em></h2>
+
+    <div class="contact-grid">
+      <div class="contact-side">
+        <p class="section-subtitle reveal">
+          I am available for an {person.availability.weeks}-week internship from{' '}
+          <strong>{person.availability.label.replace('–', 'to')}</strong>. If you have an opportunity, a question,
+          or feedback on my projects, feel free to contact me.
+        </p>
+
+        <a class="contact-email reveal" href={`mailto:${person.email}`}>
+          {person.email}
+          <Icon name="arrow" />
+        </a>
+
+        <ul class="contact-info reveal">
+          <li>
+            <a class="contact-card" href={`mailto:${person.email}`}>
+              <span class="contact-label">Email</span>
+              <span class="contact-value">{person.email}</span>
+              <Icon name="arrow" />
+            </a>
+          </li>
+          {
+            links.map((social) => (
+              <li>
+                <ExternalLink class="contact-card" href={social.href}>
+                  <span class="contact-label">{social.label}</span>
+                  <span class="contact-value">{social.display}</span>
+                  <Icon name="arrow" />
+                </ExternalLink>
+              </li>
+            ))
+          }
+          <li>
+            <div class="contact-card">
+              <span class="contact-label">Location</span>
+              <span class="contact-value">{person.location}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <ContactForm client:visible email={person.email} />
+    </div>
+  </div>
+
+  <!--
+    netlify reads the built html to find forms, and the react form is only an island.
+    this hidden copy with the same name and fields is what netlify detects.
+  -->
+  <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="contact" />
+    <input name="bot-field" />
+    <input name="name" />
+    <input name="email" />
+    <input name="subject" />
+    <textarea name="message"></textarea>
+  </form>
+</section>

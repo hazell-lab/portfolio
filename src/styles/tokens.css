@@ -1,0 +1,121 @@
+/* =========================
+   1. design tokens
+========================= */
+
+:root {
+  /* light theme: warm paper, charcoal ink, one restrained cobalt accent */
+  --bg: #f3f1ec;
+  --bg-band: #eae7e0;
+  --surface: #fbfaf7;
+  --ink: #1b1b1d;
+  --ink-2: #45444a;
+  --ink-3: #5f5d63;
+  --rule: rgba(27, 27, 29, 0.13);
+  --rule-strong: rgba(27, 27, 29, 0.85);
+  --accent: #2a44c4;
+  --accent-soft: rgba(42, 68, 196, 0.08);
+  --on-accent: #ffffff;
+  --on-ink: #f3f1ec;
+  --plate: #18181b;          /* backdrop behind app screenshots */
+  --portrait-bg: #e2ded6;    /* plain backdrop behind the hero portrait */
+  --plate-rule: rgba(27, 27, 29, 0.18);
+  --success: #2f7a4b;
+  --danger: #b3261e;
+  --shadow-plate: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 30px 60px -30px rgba(27, 27, 29, 0.45);
+  --selection: #2a44c4;
+  --selection-ink: #ffffff;
+
+  /* type */
+  --font-display: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
+  --font-text: "Schibsted Grotesk Variable", "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Consolas", "Courier New", monospace;
+
+  /* type scale, fluid between phone and wide desktop */
+  --fs-meta: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-lg: clamp(1.125rem, 1.02rem + 0.4vw, 1.3rem);
+  --fs-xl: clamp(1.45rem, 1.2rem + 1vw, 2rem);
+  --fs-2xl: clamp(2.25rem, 1.5rem + 3vw, 4.25rem);
+  --fs-3xl: clamp(3rem, 1.6rem + 6vw, 7.5rem);
+  --fs-display: clamp(5.25rem, 0.5rem + 17.5vw, 17.5rem);
+
+  /* spacing, 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 144px;
+  --section-pad: clamp(88px, 11vw, 168px);
+  --gutter: clamp(16px, 4vw, 48px);
+  --nav-height: 68px;
+
+  /* borders */
+  --radius-sm: 3px;
+  --radius-pill: 999px;
+  --hairline: 1px solid var(--rule);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 0.18s;
+  --dur-2: 0.45s;
+  --dur-3: 0.9s;
+}
+
+/* dark theme: warm charcoal, warm white, lighter cobalt */
+:root[data-theme="dark"] {
+  --bg: #141416;
+  --bg-band: #1b1b1e;
+  --surface: #202024;
+  --ink: #ece9e3;
+  --ink-2: #bdbab3;
+  --ink-3: #94918b;
+  --rule: rgba(236, 233, 227, 0.12);
+  --rule-strong: rgba(236, 233, 227, 0.8);
+  --accent: #8fa0ff;
+  --accent-soft: rgba(143, 160, 255, 0.1);
+  --on-accent: #0d1340;
+  --on-ink: #141416;
+  --plate: #1e1e22;
+  --portrait-bg: #d3cec5;
+  --plate-rule: rgba(236, 233, 227, 0.1);
+  --success: #6fcf8f;
+  --danger: #ff8a80;
+  --shadow-plate: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  --selection: #8fa0ff;
+  --selection-ink: #0d1340;
+  color-scheme: dark;
+}
+
+/* no javascript: follow the system setting */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #141416;
+    --bg-band: #1b1b1e;
+    --surface: #202024;
+    --ink: #ece9e3;
+    --ink-2: #bdbab3;
+    --ink-3: #94918b;
+    --rule: rgba(236, 233, 227, 0.12);
+    --rule-strong: rgba(236, 233, 227, 0.8);
+    --accent: #8fa0ff;
+    --accent-soft: rgba(143, 160, 255, 0.1);
+    --on-accent: #0d1340;
+    --on-ink: #141416;
+    --plate: #1e1e22;
+    --portrait-bg: #d3cec5;
+    --plate-rule: rgba(236, 233, 227, 0.1);
+    --success: #6fcf8f;
+    --danger: #ff8a80;
+    --shadow-plate: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+    --selection: #8fa0ff;
+    --selection-ink: #0d1340;
+    color-scheme: dark;
+  }
+}

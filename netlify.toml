@@ -1,0 +1,35 @@
+# netlify builds the site from source on every push
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# old single-file case study urls point to the new project pages
+[[redirects]]
+  from = "/projects/:slug.html"
+  to = "/projects/:slug/"
+  status = 301
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+# security headers for every page. the content security policy itself is a
+# meta tag written by astro with hashes of every script and style.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+
+# hashed build files never change, so browsers can keep them for a year
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

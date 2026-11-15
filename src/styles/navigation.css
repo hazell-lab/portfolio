@@ -1,0 +1,207 @@
+/* =========================
+   5. navigation
+========================= */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  transition: transform var(--dur-2) var(--ease-out), background-color var(--dur-2) ease,
+              border-color var(--dur-2) ease;
+  border-bottom: 1px solid transparent;
+}
+
+/* javascript adds this class after you scroll down */
+.site-header.scrolled {
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(10px);
+  backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom-color: var(--rule);
+}
+
+/* hides while scrolling down, comes back when scrolling up */
+.site-header.tucked {
+  transform: translateY(-100%);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: var(--nav-height);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  transition: background-color var(--dur-2) var(--ease-out), transform var(--dur-3) var(--ease-out);
+}
+
+.logo:hover .logo-mark {
+  background: var(--accent);
+  transform: rotate(-12deg);
+}
+
+.logo-text {
+  font-size: 0.95rem;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color var(--dur-1) ease;
+}
+
+.nav-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-3);
+  transition: color var(--dur-1) ease;
+}
+
+/* a short accent line slides under the active link */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 4px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.nav-link:hover {
+  color: var(--ink);
+}
+
+.nav-link.active {
+  color: var(--ink);
+}
+
+.nav-link.active .nav-num {
+  color: var(--accent);
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* the home link is only needed in the mobile menu */
+.nav-list li:first-child {
+  display: none;
+}
+
+.nav-list-cta {
+  margin-left: 10px;
+}
+
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* theme switch */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px 0 11px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color var(--dur-1) ease, color var(--dur-1) ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--rule-strong);
+  color: var(--ink);
+}
+
+.theme-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+
+[data-theme="dark"] .theme-icon {
+  transform: rotate(180deg);
+}
+
+/* hamburger button, hidden on desktop */
+.nav-toggle {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform var(--dur-2) var(--ease-out), top var(--dur-2) var(--ease-out);
+}
+
+.nav-toggle-bar:nth-child(1) { top: 17px; }
+.nav-toggle-bar:nth-child(2) { top: 25px; }
+
+/* turns the 2 bars into an x when the menu is open */
+.nav-toggle.open .nav-toggle-bar:nth-child(1) {
+  top: 21px;
+  transform: rotate(45deg);
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(2) {
+  top: 21px;
+  transform: rotate(-45deg);
+}

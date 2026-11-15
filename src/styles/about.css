@@ -1,0 +1,155 @@
+/* =========================
+   8. about
+========================= */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-7) var(--space-5);
+}
+
+.about-lede {
+  grid-column: 2 / span 9;
+  font-size: var(--fs-3xl);
+  line-height: 0.95;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.about-figure {
+  grid-column: 2 / span 4;
+  grid-row: 2 / span 2;
+  margin-top: var(--space-5);
+}
+
+.about-image {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--plate);
+}
+
+.about-image img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 25%;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 1.2s var(--ease-out);
+}
+
+/* the photo comes into colour once it is on screen */
+.about-figure.visible .about-image img,
+.no-reveal .about-image img {
+  filter: grayscale(0) contrast(1);
+}
+
+.about-figure figcaption {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: var(--hairline);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.about-content {
+  grid-column: 7 / span 5;
+  margin-top: var(--space-5);
+}
+
+.about-heading {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.about-content p {
+  max-width: 60ch;
+  color: var(--ink-2);
+}
+
+/* each paragraph has a small label in the margin: now, practice, next */
+.about-note {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: var(--hairline);
+}
+
+.about-note .meta-key {
+  padding-top: 0.3em;
+  color: var(--accent);
+}
+
+.about-proof {
+  grid-column: 7 / span 5;
+}
+
+.about-list {
+  margin-top: var(--space-3);
+  counter-reset: proof;
+  border-top: var(--hairline);
+}
+
+.about-list li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  padding: 12px 0;
+  border-bottom: var(--hairline);
+  font-size: 0.95rem;
+  color: var(--ink);
+  counter-increment: proof;
+}
+
+.about-list li::before {
+  content: counter(proof, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  line-height: 1.6rem;
+  color: var(--accent);
+}
+
+/* ruled key facts */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(64px, 8vw, 120px);
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: var(--hairline);
+}
+
+.info-card {
+  padding: 18px 20px 22px;
+  border-right: var(--hairline);
+}
+
+.info-card:first-child {
+  padding-left: 0;
+}
+
+.info-card:last-child {
+  border-right: 0;
+}
+
+.info-card dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.info-card dd {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.1;
+}

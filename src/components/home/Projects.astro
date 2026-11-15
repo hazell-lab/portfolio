@@ -1,0 +1,66 @@
+---
+// the projects section. the explorer island renders the filters, contents list and cards.
+// every project is rendered on the server too, so the full list is there before javascript runs.
+import SectionHead from '@/components/ui/SectionHead.astro';
+import { ProjectExplorer } from '@/components/react/projects/ProjectExplorer';
+import type { ProjectCardData, ProjectGroup } from '@/components/react/projects/types';
+import { projects } from '@/data/projects';
+import { projectPath } from '@/lib/projects';
+import { responsiveImage } from '@/lib/images';
+import type { Project } from '@/types/content';
+
+const groupOf = (project: Project): ProjectGroup =>
+  project.featured ? 'featured' : project.category === 'desktop' ? 'supporting' : 'more';
+
+// the short note under a card when there is no live demo to link to
+const noteOf = (project: Project): ProjectCardData['note'] => {
+  if (project.links.demo) return undefined;
+  if (project.links.code && project.category === 'desktop') return { text: 'Windows 11 app', windows: true };
+  if (!project.links.code && project.platformNote)
+    return { text: project.platformNote.split(' · ')[0] ?? project.platformNote, windows: false };
+  return undefined;
+};
+
+const cards: ProjectCardData[] = await Promise.all(
+  projects.map(async (project, i) => {
+    const group = groupOf(project);
+    const feature = group === 'featured';
+    const note = noteOf(project);
+    return {
+      slug: project.slug,
+      name: project.name,
+      kind: project.kind,
+      category: project.category,
+      group,
+      index: i + 1,
+      summary: project.summary,
+      stack: project.stack,
+      href: projectPath(project.slug),
+      image: await responsiveImage(project.cover.src, {
+        alt: '',
+        widths: feature ? [480, 800, 1200] : [400, 720],
+        sizes: feature ? '(max-width: 960px) 100vw, 58vw' : '(max-width: 960px) 100vw, 30vw',
+      }),
+      ...(project.badge && { badge: project.badge }),
+      ...(project.figure && { figure: project.figure }),
+      ...(project.links.demo && { demo: project.links.demo }),
+      ...(project.links.code && { code: project.links.code }),
+      ...(note && { note }),
+    };
+  }),
+);
+---
+
+<section class="section section-projects" id="projects" aria-labelledby="projects-title">
+  <div class="container">
+    <SectionHead num="03" eyebrow="Selected work" titleId="projects-title" split>
+      Projects I have <em>built</em>
+      <Fragment slot="subtitle">
+        Four front-end web apps lead the list, followed by a weather dashboard, my final year team app and
+        supporting Windows tools. Every project has its own page with the decisions and tests behind it.
+      </Fragment>
+    </SectionHead>
+
+    <ProjectExplorer client:idle projects={cards} />
+  </div>
+</section>

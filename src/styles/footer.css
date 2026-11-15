@@ -1,0 +1,90 @@
+/* =========================
+   14. footer
+========================= */
+
+.site-footer {
+  padding: clamp(56px, 7vw, 96px) 0 28px;
+  border-top: var(--hairline);
+  overflow: hidden;
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.footer-brand {
+  grid-column: 1 / span 5;
+}
+
+.footer-tagline {
+  font-size: var(--fs-sm);
+  color: var(--ink);
+}
+
+.footer-note {
+  margin-top: 4px;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+.footer-socials {
+  grid-column: 7 / span 6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 24px;
+}
+
+.footer-wordmark {
+  display: block;
+  margin: clamp(40px, 6vw, 80px) 0 clamp(16px, 2vw, 24px);
+  font-family: var(--font-display);
+  font-size: calc(min(100vw - 2 * var(--gutter), 1264px) / 3.78);
+  line-height: 0.8;
+  padding-bottom: 0.16em;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  color: var(--ink);
+  transition: color var(--dur-2) ease;
+}
+
+.footer-wordmark em {
+  margin-left: 0.14em;
+  color: var(--ink-3);
+  transition: color var(--dur-2) ease;
+}
+
+.footer-wordmark:hover em {
+  color: var(--accent);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 22px;
+  padding-top: 18px;
+  border-top: var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+
+.back-to-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color var(--dur-1) ease;
+}
+
+.back-to-top-link:hover {
+  color: var(--accent);
+}

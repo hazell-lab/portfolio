@@ -1,0 +1,52 @@
+---
+// education timeline and courses
+import SectionHead from '@/components/ui/SectionHead.astro';
+import { courses, education } from '@/data/profile';
+---
+
+<section class="section section-education" id="education" aria-labelledby="education-title">
+  <div class="container">
+    <SectionHead num="04" eyebrow="Education" titleId="education-title">
+      My academic <em>background</em>
+      <Fragment slot="subtitle">A short timeline of my studies and the courses I have completed so far.</Fragment>
+    </SectionHead>
+
+    <div class="timeline">
+      {
+        education.map((entry) => (
+          <article class="timeline-item reveal">
+            <span class="timeline-date">
+              {entry.period} {entry.expected && <em>(expected)</em>}
+            </span>
+            <div class="timeline-card">
+              <h3 class="timeline-title">{entry.title}</h3>
+              <p class="timeline-place">{entry.place}</p>
+              <p class="timeline-text">{entry.text}</p>
+              <ul class="timeline-list">
+                {entry.list.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+            <p class="timeline-badge">
+              <span class="meta-key">{entry.badge.label}</span> <strong>{entry.badge.value}</strong>
+              {entry.badge.note && <span class="timeline-badge-note">{entry.badge.note}</span>}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="cert-block">
+      <h3 class="subsection-title reveal"><span class="meta-key">Also</span> Courses &amp; professional development</h3>
+      <ul class="cert-grid">
+        {
+          courses.map((course) => (
+            <li class="cert-card reveal">
+              <h4>{course.title}</h4>
+              <p>{course.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
