@@ -91,7 +91,7 @@ export interface Project {
   /** automated tests i ran myself, used for the totals in the hero */
   tests?: {
     count: number;
-    tool: 'Vitest' | 'xUnit' | 'custom checks';
+    tool: 'Vitest' | 'xUnit' | 'node:test' | 'custom checks';
   };
   role: string;
   type: string;

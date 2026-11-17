@@ -17,7 +17,9 @@ const testsLabel =
     ? 'Vitest + React Testing Library'
     : project.tests?.tool === 'xUnit'
       ? 'xUnit tests for the .NET core'
-      : 'automated checks with a small custom runner';
+      : project.tests?.tool === 'node:test'
+        ? 'unit tests with the Node.js test runner'
+        : 'automated checks with a small custom runner';
 ---
 
 <section class="case-intro" aria-labelledby="case-title">

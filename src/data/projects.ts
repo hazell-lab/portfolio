@@ -160,100 +160,107 @@ tests/          Vitest tests for helpers, hooks and components`,
     category: 'web',
     featured: true,
     summary:
-      'A full music streaming front end with no framework and no dependencies: home feed, live search, library, playlist, album and artist pages, a queue, a Now Playing overlay and a working player with shuffle, repeat, a draggable progress bar and lock-screen Media Session info. A Node script checks 95 app behaviours.',
+      'A music listening app in plain JavaScript modules with no framework and no dependencies. It plays real 30-second Apple Music previews, with an artwork-led editorial design, a player you can see at all times, an editable queue, playlists, search with filters and lock-screen controls. 50 unit tests cover the queue, audio engine, player, library and search.',
     lede:
-      'A complete music streaming front end written in plain HTML, CSS and JavaScript, with no framework, no dependencies and no build step. It plays real 30-second previews of 63 songs, loaded live from Apple Music.',
-    figure: { value: '95', label: 'behaviours checked' },
-    tests: { count: 95, tool: 'custom checks' },
-    role: 'Solo project: design, code and generated artwork',
+      'A music listening app written in plain HTML, CSS and JavaScript modules, with no framework and no dependencies. It plays real 30-second previews of 63 songs, loaded live from Apple Music. Version 2.0 is a full rewrite: a new design, a modular codebase and real unit tests.',
+    figure: { value: '50', label: 'unit tests' },
+    tests: { count: 50, tool: 'node:test' },
+    role: 'Solo project: design, code, tests and generated artwork',
     type: 'Static front-end portfolio project',
-    stack: ['HTML', 'CSS', 'JavaScript', 'iTunes Search API', 'Media Session API', 'localStorage'],
+    stack: ['HTML', 'CSS', 'JavaScript', 'ES modules', 'iTunes Search API', 'Media Session API', 'localStorage', 'Node.js test runner'],
     links: {
       demo: 'https://hazell-lab.github.io/WaveMusic/',
       code: 'https://github.com/hazell-lab/WaveMusic',
     },
     cover: {
       src: wavemusicCover,
-      alt: 'WaveMusic home page with a sidebar, playlists and the bottom player',
-      caption: 'Home: greeting, recently played, mixes and the fixed bottom player.',
+      alt: 'WaveMusic Listen page with the number one song in large serif type and the player deck on the right, playing BIRDS OF A FEATHER',
+      caption: 'Listen page with the player deck, which stays in view on desktop.',
     },
     overview: [
-      'WaveMusic has a home feed, search, a library, playlist, album and artist pages, a queue, a Now Playing overlay and a working bottom player. The design is original: it takes the general feel of modern music apps but copies no branding, logos or layouts.',
-      'Because it uses **no framework**, every part of routing, rendering, state and events is written by hand, and the main challenge was keeping a large, app-like interface organised.',
+      'WaveMusic has a Listen page, Browse with search and genres, a Library, album, artist, collection and playlist pages, an editable queue and a player that is always in view. The design is led by artwork and set out like a magazine: large serif titles, a mono type for labels and one amber signal colour on near-black. It is meant to feel different from the big streaming apps, not copy them.',
+      'Version 2.0 replaced one 1,895-line script with **small ES modules**, removed every feature that only pretended to work, and added a real unit test suite that runs in Node with no dependencies.',
     ],
     features: [
-      { title: 'Real previews', text: 'Each song plays its official 30-second preview with real album artwork.' },
-      { title: 'Player', text: 'Play, pause, next, previous, shuffle, repeat (off, all, one), a draggable progress bar that also works with the keyboard, volume and mute.' },
-      { title: 'Playlists and queue', text: 'Playlist, album and artist pages with full track tables, a slide-in queue panel, and liked songs with their total duration.' },
-      { title: 'Media Session', text: 'Track metadata for the operating system and lock screen.' },
-      { title: 'Live search', text: 'Filters songs, artists, albums, playlists and genres as you type.' },
-      { title: 'Shareable views', text: 'The current page is kept in the URL hash, and back and forward work.' },
-      { title: 'Keyboard shortcuts', text: 'Space to play or pause, / to search, Shift + arrows for next and previous, Esc to close overlays.' },
+      { title: 'Real previews', text: 'Each song plays its official 30-second preview with real album artwork. One lookup request loads all 63 and is cached for 24 hours.' },
+      { title: 'Player', text: 'Play, pause, next, previous (which restarts after 3 seconds), seek, volume, mute, shuffle and repeat off, all or one, with a status lamp for loading, playing, paused and error.' },
+      { title: 'Queue', text: 'An up-next list with play now, move up, move down, remove, play next, add to queue and clear. Turning shuffle off restores the original order.' },
+      { title: 'Library and playlists', text: 'Like songs, follow artists, create, rename and delete playlists, reorder tracks, save a collection as your own and keep a play history.' },
+      { title: 'Search', text: 'Accent- and case-insensitive search across songs, albums, artists and collections, with type and genre filters and clear empty, loading and error states.' },
+      { title: 'Media Session', text: 'Title, artist, album and artwork on the lock screen and in the system media controls, with play, pause, next, previous and seek handlers.' },
+      { title: 'Keyboard', text: '11 shortcuts, including Space or K to play, Shift + arrows for next and previous, arrows to seek, / to search and ? for the full list.' },
+      { title: 'Phone layout', text: 'A bottom tab bar and a mini player that opens a full-screen player sheet, with the page behind it made inert.' },
     ],
     frontEnd: [
-      'One `state` object holds the view history, queue, current position, shuffle, repeat, volume and liked songs. It is saved to localStorage and read back on load.',
-      'Shuffle keeps its own shuffled list of queue positions with the current song first, so "next" plays every other song once before the queue ends.',
-      'The playing song is sent to the Media Session API, so its title, artist and cover show in the system media controls and on the lock screen.',
-      'A demo mode plays through the queue with a timer, so the player still works when the preview audio cannot load.',
+      'Three small observable stores hold the player, library and catalogue state. Views and the player UI subscribe to them, and the queue, library and search logic are **pure functions** that never touch the DOM.',
+      'One `<audio>` element plays everything, so two songs can never overlap. Each load gets a token, so a slow `play()` promise from an earlier track cannot start or show the wrong song.',
+      'The progress bar runs on `requestAnimationFrame` only while audio is playing and the tab is visible, and writes straight to the DOM, so playback never re-renders the page.',
+      'Views are HTML strings built with an `html` tagged template that escapes every value, so a playlist named `<b>x</b>` shows as plain text.',
+      'The session (queue, track, position, volume, shuffle, repeat) is saved and comes back **paused** after a reload, because browsers block autoplay without a click.',
     ],
     architecture: {
       intro: [
-        '`index.html` is a shell that never changes: sidebar, top bar, an empty `<main>`, the player and the overlays. All content lives in `data.js`, and `app.js` is split into 11 numbered sections, from state and persistence to the router, the views and one global event handler.',
+        '`index.html` is the shell: masthead, an empty `<main>`, the player deck, mini player, tab bar and dialogs. `main.js` wires the modules together and handles every click through one delegated listener and an `ACTIONS` map keyed by `data-action`.',
       ],
-      tree: `index.html     the app shell
-css/style.css  every style, driven by css variables
-js/data.js     songs, artists, albums, playlists, palettes
-js/app.js      state, audio, player, views, router, events, startup
-js/art.js      cover helpers and the broken-image fallback
-js/icons.js    an svg sprite of 59 hand-written icons
-docs/          build-art.js (covers) and verify-logic.js (95 checks)`,
+      tree: `index.html          the app shell
+css/                base, layout, player and views
+js/main.js          wiring and the single click handler
+js/router.js        hash router
+js/core/            store, storage, formatting, safe html
+js/data/            catalogue and the apple music loader
+js/player/          audio engine, queue, media session, player
+js/library/         likes, follows, playlists, history
+js/search/          weighted, accent-insensitive search
+js/ui/, js/views/   player ui, track lists, dialogs, pages
+scripts/            dev server, build check, cover art, zip
+tests/              50 unit tests with a fake audio element`,
     },
     decisions: [
       {
-        challenge: 'Without a framework, re-rendering pages can easily leak event listeners or need complex wiring for every button.',
-        decision: 'Every view is a function that returns an HTML string, and buttons carry a `data-action` attribute. **One** click listener on the document handles them all, so there are no listeners to leak.',
+        challenge: 'Version 1 had a profile menu, notifications, a devices picker, made-up dates and an offline "demo mode" that moved the progress bar with no audio.',
+        decision: 'All of it was **removed**. If the catalogue cannot load, the app says so and offers a retry instead of pretending to play.',
       },
       {
-        challenge: "63 songs need preview links and artwork, and Apple's preview links can change over time.",
-        decision: 'Each song stores only its Apple Music track id. On startup the app sends **one** lookup request for all 63 ids and caches the result in localStorage for 24 hours.',
+        challenge: 'One broken preview should not end a listening session, but a dead network should not cause an endless skip loop.',
+        decision: 'A failed track shows an error and a toast, then the player skips to the next playable track, and it **stops after one full pass** through the queue.',
       },
       {
-        challenge: 'If the network is offline or blocked, there is no audio, and a music player with nothing to play feels broken.',
-        decision: 'A demo mode takes over: a 250 ms timer drives the playhead, so the progress bar, next, previous, repeat and the Now Playing view still behave as normal, and the badge changes to "Demo".',
+        challenge: 'The audio code is the hardest part to get right and the hardest to check by hand.',
+        decision: 'The audio engine takes the `<audio>` element as a parameter, so tests pass in a **fake audio element** whose `play()` can resolve, hang, fail or be blocked like a real browser.',
       },
       {
-        challenge: 'A dense desktop layout with a sidebar and a three-part player has to work on a phone.',
-        decision: 'Five breakpoints: the sidebar becomes a drawer, a bottom navigation appears, the player shrinks to a mini bar, and Now Playing becomes a full-screen sheet.',
+        challenge: 'The goal was better engineering without moving to a framework or adding dependencies.',
+        decision: 'Native **ES modules** with no bundler. The same files run in the browser and in Node tests, and a build script copies the app and checks that all 100 local references resolve.',
       },
     ],
     testing: {
       intro: [
-        '`docs/verify-logic.js` loads the real app files into a small DOM in Node and checks that every view renders, the router works, the player behaves, the data is consistent and every generated cover exists. It runs offline, so it also proves that demo mode works.',
+        "`npm test` runs 50 unit tests with Node's built-in test runner and no dependencies. A fake `<audio>` element, an in-memory storage and a seeded shuffle stand in for the browser.",
       ],
       stats: [
-        { value: '95', label: 'automated checks against the real app code' },
-        { value: '0', label: 'dependencies and no build step' },
-        { value: '1', label: 'API request to load the whole catalogue' },
+        { value: '50', label: 'unit tests for queue, audio, player, library and search' },
+        { value: '0', label: 'runtime or dev dependencies' },
+        { value: '100', label: 'local references checked by the build' },
       ],
       notes: [
-        'I last ran it on 14 November 2026: 95 passed, 0 failed.',
-        'The progress bars are real sliders (`role="slider"`) that you can move with the arrow keys, icon-only buttons have labels, and animations switch off for reduced motion.',
+        'I last ran them on 17 November 2026: 50 passed, 0 failed.',
+        'The rest was checked by hand in Chromium at 1440, 1280, 820 and 390 pixels wide. Firefox, Safari and real phones were not tested yet.',
       ],
     },
     gallery: {
-      source: 'Captured from the live GitHub Pages demo.',
+      source: 'Captured from the live GitHub Pages demo while a preview was playing.',
       images: [
-        { src: waveAlbum, alt: 'WaveMusic album page for After Hours with the track list and play controls', caption: 'Album page with a colour gradient taken from the album palette.', frame: 'wide' },
-        { src: waveMobile, alt: 'WaveMusic home on a phone with a mini player and bottom navigation', caption: 'Phone layout with the mini player and bottom navigation.', frame: 'phone' },
+        { src: waveAlbum, alt: 'WaveMusic album page for After Hours with the track list, the playing row marked and the player deck on the right', caption: 'Album page. The deck picks up a tint from the album artwork.', frame: 'wide' },
+        { src: waveMobile, alt: 'WaveMusic full-screen player on a phone with artwork, seek bar, transport controls, volume and the up-next queue', caption: 'On a phone, the mini player opens a full-screen player with the queue.', frame: 'phone' },
       ],
     },
     learned: [
-      'Structuring a large vanilla JavaScript app so it stays readable: one shell, one data file, numbered sections and one event handler.',
-      'Building a small hash router with its own back and forward history.',
-      'Working with the HTML audio element, the Media Session API and a public API with caching.',
-      'Planning for failure: fallbacks for broken images and a demo mode for a missing network.',
+      'Splitting a large vanilla JavaScript app into small modules with clear jobs, and keeping logic pure so it can be tested without a browser.',
+      'Handling the messy parts of audio in the browser: stale promises, blocked autoplay, media errors and listener cleanup.',
+      'Testing code that depends on browser APIs by passing in fakes instead of mocking globals.',
+      'Being honest in a portfolio project: removing features that only looked real.',
     ],
-    next: ['Live search against the full iTunes catalogue', 'A saved queue', 'A Vitest or Playwright suite built on the current checks'],
+    next: ['Live search against the full iTunes catalogue', 'Testing in Firefox, Safari and on real phones', 'Offline caching with a service worker'],
   },
 
   /* =========================
