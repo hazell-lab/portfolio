@@ -222,9 +222,9 @@ Then drop the `dist` folder (not the project folder) onto **Deploys** in the Net
 | Project | Type | Stack | Links |
 |---|---|---|---|
 | Streamix | Web (featured) | React, TypeScript, Vite, Tailwind, Vitest | [Demo](https://streamix-hazim.netlify.app) · [Code](https://github.com/hazell-lab/Streamix) |
-| WaveMusic | Web (featured) | HTML, CSS, JavaScript, Media Session API | [Demo](https://hazell-lab.github.io/WaveMusic/) · [Code](https://github.com/hazell-lab/WaveMusic) |
+| WaveMusic | Web (featured) | HTML, CSS, JavaScript, Media Session API | [Demo](https://hazell-lab.github.io/wavemusic/) · [Code](https://github.com/hazell-lab/wavemusic) |
 | HazStore | Web (featured) | HTML, CSS, JavaScript | [Demo](https://hazstore-ecommerce.netlify.app) · [Code](https://github.com/hazell-lab/haz-store) |
-| HazFocus | Web (featured) | HTML, CSS, JavaScript | [Demo](https://productivity-app-hazim.netlify.app) · [Code](https://github.com/hazell-lab/Haz-Focus) |
+| HazFocus | Web (featured) | HTML, CSS, JavaScript | [Demo](https://productivity-app-hazim.netlify.app) · [Code](https://github.com/hazell-lab/haz-focus) |
 | HazCast | Web | HTML, CSS, JavaScript, Open-Meteo API | [Demo](https://hazcast-weatherdashboard.netlify.app) · [Code](https://github.com/hazell-lab/Haz-Cast) |
 | Yes, Halal | Mobile (team final year project) | Flutter, Dart, Node.js, Firestore | — |
 | ClipNest | Desktop (supporting) | C#, .NET 10, WPF, SQLite | [Code](https://github.com/hazell-lab/ClipNest) |

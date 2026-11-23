@@ -169,8 +169,8 @@ tests/          Vitest tests for helpers, hooks and components`,
     type: 'Static front-end portfolio project',
     stack: ['HTML', 'CSS', 'JavaScript', 'ES modules', 'iTunes Search API', 'Media Session API', 'localStorage', 'Node.js test runner'],
     links: {
-      demo: 'https://hazell-lab.github.io/WaveMusic/',
-      code: 'https://github.com/hazell-lab/WaveMusic',
+      demo: 'https://hazell-lab.github.io/wavemusic/',
+      code: 'https://github.com/hazell-lab/wavemusic',
     },
     cover: {
       src: wavemusicCover,
@@ -354,7 +354,7 @@ tests/              50 unit tests with a fake audio element`,
     stack: ['HTML', 'CSS', 'JavaScript', 'localStorage', 'Drag and Drop API'],
     links: {
       demo: 'https://productivity-app-hazim.netlify.app',
-      code: 'https://github.com/hazell-lab/Haz-Focus',
+      code: 'https://github.com/hazell-lab/haz-focus',
     },
     cover: {
       src: hazfocusCover,
