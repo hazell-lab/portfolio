@@ -1,0 +1,94 @@
+---
+// the top of a project page: back link, title, lede, facts, links and the cover image
+import { Image } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import ExternalLink from '@/components/ui/ExternalLink.astro';
+import type { Project } from '@/types/content';
+import { categoryLabels, pad } from '@/lib/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const testsLabel =
+  project.tests?.tool === 'Vitest'
+    ? 'Vitest + React Testing Library'
+    : project.tests?.tool === 'xUnit'
+      ? 'xUnit tests for the .NET core'
+      : project.tests?.tool === 'node:test'
+        ? 'unit tests with the Node.js test runner'
+        : 'automated checks with a small custom runner';
+---
+
+<section class="case-intro" aria-labelledby="case-title">
+  <div class="container">
+    <a class="case-back" href="/#projects">
+      <Icon name="arrow-left" /> All projects
+    </a>
+
+    <p class="case-kicker">
+      <span>Case study {pad(index)}</span>
+      <span>{categoryLabels[project.category]}</span>
+      {project.badge && <span>{project.badge}</span>}
+      {project.team && <span>Team of {project.team.size}</span>}
+    </p>
+    <h1 class="case-title" id="case-title">{project.name} <em>{project.kind.toLowerCase()}</em></h1>
+    <p class="case-lede">{project.lede}</p>
+
+    <dl class="case-facts">
+      <div class="case-fact"><dt>Role</dt><dd>{project.role}</dd></div>
+      <div class="case-fact"><dt>Type</dt><dd>{project.type}</dd></div>
+      <div class="case-fact"><dt>Stack</dt><dd>{project.stack.join(', ')}</dd></div>
+      {
+        project.tests ? (
+          <div class="case-fact">
+            <dt>Tests</dt>
+            <dd>
+              <strong>{project.tests.count}</strong>
+              <br />
+              {testsLabel}
+            </dd>
+          </div>
+        ) : (
+          <div class="case-fact">
+            <dt>Tests</dt>
+            <dd>No automated suite, see the testing section</dd>
+          </div>
+        )
+      }
+    </dl>
+
+    <div class="case-links">
+      {
+        project.links.demo && (
+          <ExternalLink class="btn btn-primary btn-sm" href={project.links.demo}>
+            Live demo <Icon name="arrow" />
+          </ExternalLink>
+        )
+      }
+      {
+        project.links.code && (
+          <ExternalLink class:list={['link-arrow', { 'btn btn-primary btn-sm': !project.links.demo }]} href={project.links.code}>
+            <Icon name="github" /> Source code
+          </ExternalLink>
+        )
+      }
+      {project.platformNote && <p class="case-platform">{project.platformNote}</p>}
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <figure class="case-plate">
+    <Image
+      src={project.cover.src}
+      alt={project.cover.alt}
+      widths={[640, 960, 1280]}
+      sizes="(max-width: 1280px) 100vw, 1280px"
+      priority
+    />
+    {project.cover.caption && <figcaption>{project.cover.caption}</figcaption>}
+  </figure>
+</div>

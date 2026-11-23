@@ -1,0 +1,53 @@
+/* =========================
+   404 page
+========================= */
+
+.not-found {
+  padding: calc(var(--nav-height) + clamp(64px, 10vw, 140px)) 0 var(--section-pad);
+}
+
+.not-found-title {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.not-found-title em {
+  color: var(--accent);
+}
+
+.not-found-text {
+  margin-top: var(--space-5);
+  max-width: 48ch;
+  font-size: var(--fs-lg);
+  color: var(--ink-2);
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: var(--space-6);
+}
+
+.not-found-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: var(--space-8);
+  padding: var(--space-5) 0 0;
+  border-top: var(--hairline);
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.not-found-list a:hover {
+  color: var(--accent);
+}

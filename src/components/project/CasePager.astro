@@ -1,0 +1,54 @@
+---
+// previous and next project, then related projects
+import { Image } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import { projects } from '@/data/projects';
+import { categoryLabels, neighbours, projectPath, relatedProjects } from '@/lib/projects';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const { previous, next } = neighbours(projects, slug);
+const related = relatedProjects(projects, slug);
+---
+
+<nav class="case-pager" aria-label="More case studies">
+  <div class="container">
+    <div class="case-pager-grid">
+      <a class="case-pager-link is-prev" href={projectPath(previous.slug)} rel="prev">
+        <span class="meta-key"><Icon name="arrow-left" /> Previous case study</span>
+        <span class="case-pager-title">{previous.name}</span>
+        <span class="case-pager-kind">{previous.kind}</span>
+      </a>
+      <a class="case-pager-link is-next" href={projectPath(next.slug)} rel="next">
+        <span class="meta-key">Next case study <Icon name="arrow-right" /></span>
+        <span class="case-pager-title">{next.name}</span>
+        <span class="case-pager-kind">{next.kind}</span>
+      </a>
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="case-related" aria-labelledby="related-title">
+          <h2 class="case-related-title" id="related-title">
+            <span class="meta-key">Related</span> Similar projects
+          </h2>
+          <ul class="case-related-list">
+            {related.map((project) => (
+              <li>
+                <a class="case-related-card" href={projectPath(project.slug)}>
+                  <Image src={project.cover.src} alt="" widths={[360, 640]} sizes="(max-width: 720px) 100vw, 40vw" />
+                  <span class="case-related-meta">{categoryLabels[project.category]}</span>
+                  <span class="case-related-name">{project.name}</span>
+                  <span class="case-related-kind">{project.kind}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</nav>

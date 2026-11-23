@@ -1,0 +1,53 @@
+---
+// practical experience from projects, then the jobs from my resume
+import SectionHead from '@/components/ui/SectionHead.astro';
+import { experienceAreas, jobs } from '@/data/profile';
+import { projects } from '@/data/projects';
+import { getProject, projectPath } from '@/lib/projects';
+---
+
+<section class="section section-experience" id="experience" aria-labelledby="experience-title">
+  <div class="container">
+    <SectionHead num="05" eyebrow="Experience & learning" titleId="experience-title">
+      What I have <em>been building</em>
+      <Fragment slot="subtitle">The practical skills behind my projects, and where you can see each one in action.</Fragment>
+    </SectionHead>
+
+    <ol class="experience-grid">
+      {
+        experienceAreas.map((area) => (
+          <li class="experience-card reveal">
+            <h3>{area.title}</h3>
+            <p>{area.text}</p>
+            <p class="experience-links">
+              <span class="meta-key">Seen in</span>
+              {area.projects.map((slug) => (
+                <a class="experience-link" href={projectPath(slug)}>
+                  {getProject(projects, slug).name}
+                </a>
+              ))}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="work-block">
+      <h3 class="subsection-title reveal"><span class="meta-key">Jobs</span> Work experience</h3>
+      <ol class="work-list">
+        {
+          jobs.map((job) => (
+            <li class="work-item reveal">
+              <span class="work-date">{job.period}</span>
+              <div class="work-body">
+                <h4>{job.title}</h4>
+                <p class="work-place">{job.place}</p>
+                <p>{job.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

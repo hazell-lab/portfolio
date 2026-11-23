@@ -1,0 +1,32 @@
+---
+// screenshot gallery. the images are optimised here, the react island adds the lightbox.
+// without javascript the images still show at normal size, just without the expand buttons.
+import { getImage } from 'astro:assets';
+import { ProjectGallery } from '@/components/react/projects/ProjectGallery';
+import type { GalleryImage } from '@/components/react/projects/types';
+import { responsiveImage } from '@/lib/images';
+import type { ProjectImage } from '@/types/content';
+
+interface Props {
+  images: ProjectImage[];
+  projectName: string;
+}
+
+const { images, projectName } = Astro.props;
+
+const shots: GalleryImage[] = await Promise.all(
+  images.map(async (image) => {
+    const phone = image.frame === 'phone';
+    const base = await responsiveImage(image.src, {
+      alt: image.alt,
+      widths: phone ? [240, 390] : [480, 800, 1200],
+      sizes: phone ? '240px' : '(max-width: 960px) 100vw, 720px',
+    });
+    // a larger copy for the lightbox, never wider than the original
+    const large = await getImage({ src: image.src, width: Math.min(image.src.width, 1800), format: 'webp' });
+    return { ...base, large: large.src, frame: image.frame ?? 'wide', ...(image.caption && { caption: image.caption }) };
+  }),
+);
+---
+
+<ProjectGallery client:visible images={shots} projectName={projectName} />

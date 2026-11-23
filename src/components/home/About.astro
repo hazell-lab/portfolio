@@ -1,0 +1,66 @@
+---
+// about: who i am, how i practise, and what i am looking for
+import { Image } from 'astro:assets';
+import SectionHead from '@/components/ui/SectionHead.astro';
+import RichText from '@/components/ui/RichText.astro';
+import profilePhoto from '@/assets/images/people/profile.webp';
+import { about } from '@/data/profile';
+import { person } from '@/data/site';
+---
+
+<section class="section section-about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <SectionHead num="01" eyebrow="About me" titleId="about-title" hideTitle>
+      {about.lede}
+    </SectionHead>
+
+    <div class="about-grid">
+      <p class="about-lede reveal" aria-hidden="true">
+        A student developer who enjoys <em>building for the web.</em>
+      </p>
+
+      <figure class="about-figure reveal">
+        <div class="about-image">
+          <Image
+            src={profilePhoto}
+            alt={`Portrait of ${person.name}`}
+            widths={[320, 640]}
+            sizes="(max-width: 960px) 60vw, 320px"
+          />
+        </div>
+        <figcaption><span class="meta-key">Fig. 01</span> {person.name} &mdash; Malaysia</figcaption>
+      </figure>
+
+      <div class="about-content reveal">
+        <h3 class="about-heading">{about.heading}</h3>
+        {
+          about.notes.map((note) => (
+            <div class="about-note">
+              <span class="meta-key">{note.label}</span>
+              <RichText text={note.text} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="about-proof reveal">
+        <h3 class="mini-title">In practice</h3>
+        <ol class="about-list">
+          {about.proof.map((item) => <li>{item}</li>)}
+        </ol>
+      </div>
+    </div>
+
+    <!-- key facts, set as a ruled table instead of cards -->
+    <dl class="info-cards reveal">
+      {
+        about.facts.map((fact) => (
+          <div class="info-card">
+            <dt>{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

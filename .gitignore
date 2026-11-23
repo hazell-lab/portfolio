@@ -1,0 +1,17 @@
+# dependencies and build output
+node_modules/
+dist/
+.astro/
+
+# test output
+playwright-report/
+test-results/
+coverage/
+
+# local env files, never commit keys
+.env
+.env.*
+!.env.example
+
+# local archives
+*.zip

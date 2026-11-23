@@ -1,0 +1,9 @@
+# build settings, used when netlify builds the site from the git repository.
+# redirects and headers live in public/_redirects and public/_headers instead,
+# so they end up in dist/ and also work when dist/ is deployed by drag and drop.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

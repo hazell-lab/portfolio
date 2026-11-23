@@ -1,0 +1,97 @@
+---
+// one project on the home page. "feature" is the large layout, "row" the compact index row.
+// the image and title open the project page; demo and code links sit beside it.
+import { Image } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import ExternalLink from '@/components/ui/ExternalLink.astro';
+import type { Project } from '@/types/content';
+import { categoryLabels, pad, projectPath } from '@/lib/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+  variant: 'feature' | 'row';
+  /** which of the three feature compositions to use */
+  composition?: 'a' | 'b' | 'c' | undefined;
+}
+
+const { project, index, variant, composition = 'a' } = Astro.props;
+const href = projectPath(project.slug);
+const titleId = `project-${project.slug}-title`;
+---
+
+<article
+  id={`project-${project.slug}`}
+  class:list={[
+    'project-card',
+    'reveal',
+    variant === 'feature' ? ['project-feature', `feature-${composition}`] : 'project-row',
+  ]}
+  data-category={project.category}
+  aria-labelledby={titleId}
+>
+  <!-- the same link as the title, hidden from screen readers and tab order to avoid a duplicate -->
+  <a class="project-media" href={href} tabindex="-1" aria-hidden="true">
+    <Image
+      src={project.cover.src}
+      alt=""
+      widths={variant === 'feature' ? [480, 800, 1200] : [400, 720]}
+      sizes={variant === 'feature' ? '(max-width: 960px) 100vw, 58vw' : '(max-width: 960px) 100vw, 30vw'}
+    />
+  </a>
+
+  <div class="project-info">
+    <p class="project-index">
+      <span>{pad(index)}</span>
+      {categoryLabels[project.category]}
+      {project.badge && <span class="project-badge">{project.badge}</span>}
+    </p>
+    <h3 class="project-title" id={titleId}>
+      <a href={href} class="project-title-link">{project.name}</a>
+      <span class="project-kind">{project.kind}</span>
+    </h3>
+    <p class="project-description">{project.summary}</p>
+    {
+      project.figure && variant === 'feature' && (
+        <p class="project-figure">
+          <strong>{project.figure.value}</strong> {project.figure.label}
+        </p>
+      )
+    }
+    <ul class="project-tech" aria-label="Technologies">
+      {project.stack.map((tech) => <li>{tech}</li>)}
+    </ul>
+    <div class="project-actions">
+      <a class:list={['btn', 'btn-sm', variant === 'feature' ? 'btn-primary' : 'btn-outline']} href={href}>
+        Case study <span class="visually-hidden">: {project.name}</span>
+        <Icon name="arrow-right" />
+      </a>
+      {
+        project.links.demo && (
+          <ExternalLink class="link-arrow" href={project.links.demo}>
+            Live demo <span class="visually-hidden">of {project.name}</span> <Icon name="arrow" />
+          </ExternalLink>
+        )
+      }
+      {
+        project.links.code && (
+          <ExternalLink class="link-arrow" href={project.links.code}>
+            <Icon name="github" /> Code <span class="visually-hidden">for {project.name}</span>
+          </ExternalLink>
+        )
+      }
+      {
+        !project.links.code && !project.links.demo && project.platformNote && (
+          <span class="project-note">{project.platformNote.split(' · ')[0]}</span>
+        )
+      }
+      {
+        project.links.code && !project.links.demo && project.category === 'desktop' && (
+          <span class="project-note">
+            <Icon name="windows" /> Windows 11 app
+          </span>
+        )
+      }
+    </div>
+  </div>
+</article>

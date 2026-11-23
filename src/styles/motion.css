@@ -1,0 +1,96 @@
+/* =========================
+   16. motion
+========================= */
+
+/* elements start a little lower and invisible, javascript reveals them.
+   the .js class means content is never hidden if javascript fails */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* section heads only draw their rule, the text fades */
+.js .section-head.reveal {
+  transform: none;
+}
+
+/* hero intro: each line of the name rises out of its mask */
+.js .hero-word,
+.js .hero-portrait {
+  transform: translateY(105%);
+  transition: transform 1.2s var(--ease-out);
+}
+
+.js .hero-line-2 .hero-word { transition-delay: 0.12s; }
+.js .hero-portrait { transition-delay: 0.24s; }
+
+/* the intro text and the buttons are not hidden: they are the main content and should paint at once */
+.js .hero-meta,
+.js .hero-ledger {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1s var(--ease-out) 0.35s, transform 1s var(--ease-out) 0.35s;
+}
+
+.js .hero-ledger { transition-delay: 0.5s; }
+
+.loaded .hero-word,
+.loaded .hero-portrait,
+.js.loaded .hero-word,
+.js.loaded .hero-portrait {
+  transform: none;
+}
+
+.js.loaded .hero-meta,
+.js.loaded .hero-ledger {
+  opacity: 1;
+  transform: none;
+}
+
+/* theme switch uses a circular wipe where the browser supports view transitions */
+.theme-switching::view-transition-old(root),
+.theme-switching::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* the project filter cross-fades quickly */
+.filtering::view-transition-group(root) {
+  animation-duration: 0.28s;
+}
+
+/* people who prefer less motion get no movement at all */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .js .reveal,
+  .js .hero-word,
+  .js .hero-portrait,
+  .js .hero-meta,
+  .js .hero-grid,
+  .js .hero-ledger {
+    opacity: 1;
+    transform: none;
+  }
+
+  .about-image img {
+    filter: none;
+  }
+}

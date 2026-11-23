@@ -1,0 +1,21 @@
+---
+// the numbered head that opens every home page section.
+// the title goes in the default slot, the subtitle in the "subtitle" slot.
+interface Props {
+  num: string;
+  eyebrow: string;
+  titleId: string;
+  split?: boolean;
+  hideTitle?: boolean;
+}
+
+const { num, eyebrow, titleId, split = false, hideTitle = false } = Astro.props;
+const hasSubtitle = Astro.slots.has('subtitle');
+---
+
+<header class:list={['section-head', 'reveal', { 'section-head-split': split }]}>
+  <span class="section-num" aria-hidden="true">{num}</span>
+  <p class="section-eyebrow">{eyebrow}</p>
+  <h2 class:list={['section-title', { 'visually-hidden': hideTitle }]} id={titleId}><slot /></h2>
+  {hasSubtitle && <p class="section-subtitle"><slot name="subtitle" /></p>}
+</header>

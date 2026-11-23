@@ -1,0 +1,143 @@
+/* =========================
+   11. education
+========================= */
+
+.section-education {
+  background: var(--bg-band);
+}
+
+.timeline {
+  border-top: var(--hairline);
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+  padding: clamp(28px, 3.5vw, 48px) 0;
+  border-bottom: var(--hairline);
+}
+
+.timeline-date {
+  grid-column: 1 / span 3;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--ink);
+}
+
+.timeline-date em {
+  font-style: normal;
+  color: var(--ink-3);
+}
+
+.timeline-card {
+  grid-column: 4 / span 6;
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.timeline-place {
+  margin-top: 6px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.timeline-text {
+  max-width: 60ch;
+  margin-top: var(--space-4);
+  color: var(--ink-2);
+}
+
+.timeline-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink);
+}
+
+.timeline-list li:not(:last-child)::after {
+  content: "·";
+  margin: 0 0.6em;
+  color: var(--ink-3);
+}
+
+.timeline-badge {
+  grid-column: 10 / span 3;
+  justify-self: end;
+  text-align: right;
+}
+
+.timeline-badge .meta-key {
+  display: block;
+}
+
+.timeline-badge strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 400;
+  line-height: 0.9;
+  color: var(--accent);
+}
+
+/* the smaller grades under the big spm number */
+.timeline-badge-note {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.cert-block {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-top: clamp(64px, 8vw, 112px);
+}
+
+.subsection-title {
+  grid-column: 1 / span 3;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.subsection-title .meta-key {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.cert-grid {
+  grid-column: 4 / span 9;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.cert-card {
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.cert-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cert-card p {
+  margin-top: 6px;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}

@@ -1,0 +1,64 @@
+---
+// site footer with social links, the closing wordmark and back to top
+import Icon from '@/components/ui/Icon.astro';
+import ExternalLink from '@/components/ui/ExternalLink.astro';
+import { person, socials } from '@/data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-cols">
+      <div class="footer-brand">
+        <p class="footer-tagline">Built with Astro, TypeScript and plain CSS</p>
+        <p class="footer-note">Set in Instrument Serif, Schibsted Grotesk and JetBrains Mono.</p>
+      </div>
+
+      <ul class="footer-socials">
+        {
+          socials.map((social) => (
+            <li>
+              {social.icon === 'mail' ? (
+                <a class="social-link" href={social.href}>
+                  <Icon name={social.icon} />
+                  <span>{social.label}</span>
+                </a>
+              ) : (
+                <ExternalLink class="social-link" href={social.href}>
+                  <Icon name={social.icon} />
+                  <span>{social.label}</span>
+                </ExternalLink>
+              )}
+            </li>
+          ))
+        }
+        <li>
+          <a class="social-link" href={person.resume.href} download={person.resume.fileName}>
+            <Icon name="download" /><span>Resume <span class="visually-hidden">(PDF)</span></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <a href="/" class="footer-wordmark" aria-label={`${person.name}, home page`}>
+      <span aria-hidden="true">{person.firstName} <em>{person.lastName}</em></span>
+    </a>
+
+    <div class="footer-bottom">
+      <p>&copy; {year} {person.name.toUpperCase()}. All rights reserved.</p>
+      <a class="back-to-top-link" href="#top">
+        Back to top <Icon name="arrow-up" />
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- floating back to top button, the ring shows how far down the page you are -->
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
+  <svg class="progress-ring" viewBox="0 0 48 48" aria-hidden="true">
+    <circle class="progress-track" cx="24" cy="24" r="22"></circle>
+    <circle class="progress-bar" cx="24" cy="24" r="22"></circle>
+  </svg>
+  <Icon name="arrow-up" />
+</button>

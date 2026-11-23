@@ -1,0 +1,15 @@
+---
+// one numbered section of a project page
+interface Props {
+  id: string;
+  num: number;
+  title: string;
+}
+
+const { id, num, title } = Astro.props;
+---
+
+<section class="case-section" id={id} aria-labelledby={`${id}-title`}>
+  <h2 id={`${id}-title`}><span aria-hidden="true">{String(num).padStart(2, '0')}</span> {title}</h2>
+  <slot />
+</section>

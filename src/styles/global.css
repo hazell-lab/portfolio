@@ -1,0 +1,25 @@
+/* =========================
+   global styles
+   one entry file that pulls in every part in cascade order.
+   tokens first, then base elements, then components, responsive rules last.
+========================= */
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./helpers.css";
+@import "./buttons.css";
+@import "./navigation.css";
+@import "./hero.css";
+@import "./section-heads.css";
+@import "./about.css";
+@import "./skills.css";
+@import "./projects.css";
+@import "./education.css";
+@import "./experience.css";
+@import "./contact.css";
+@import "./footer.css";
+@import "./back-to-top.css";
+@import "./motion.css";
+@import "./case-study.css";
+@import "./not-found.css";
+@import "./responsive.css";
