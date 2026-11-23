@@ -114,7 +114,7 @@ export const education: EducationEntry[] = [
     place: 'SMK KEM Terendak',
     text: 'Completed secondary education with an interest in science, mathematics, and computer-related subjects, which led me to study software engineering. Awards:',
     list: ['Pelajar Target SPM', 'Anugerah Cemerlang (SPM Trial)'],
-    badge: { label: 'SPM results', value: '5A', note: '2A−, 1B+' },
+    badge: { label: 'SPM results', value: '7A', note: '5A, 2A−, 1B+' },
   },
 ];
 
