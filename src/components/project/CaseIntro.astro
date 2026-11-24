@@ -19,7 +19,9 @@ const testsLabel =
       ? 'xUnit tests for the .NET core'
       : project.tests?.tool === 'node:test'
         ? 'unit tests with the Node.js test runner'
-        : 'automated checks with a small custom runner';
+        : project.tests?.tool === 'Playwright'
+          ? 'end-to-end tests with Playwright'
+          : 'automated checks with a small custom runner';
 ---
 
 <section class="case-intro" aria-labelledby="case-title">
