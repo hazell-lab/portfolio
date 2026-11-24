@@ -30,6 +30,7 @@ export const skillGroups: SkillGroup[] = [
     note: 'Turning a design into layouts that hold up on every screen.',
     items: [
       { name: 'Tailwind CSS', projects: ['streamix'] },
+      { name: 'Bootstrap' },
       { name: 'Responsive Design', projects: allWeb, here: true },
       { name: 'CSS Grid', projects: vanillaWeb, here: true },
       { name: 'Flexbox', projects: vanillaWeb, here: true },
@@ -86,6 +87,7 @@ export const skillGroups: SkillGroup[] = [
       { name: 'Node.js', projects: ['yes-halal'] },
       { name: 'Firebase', projects: ['yes-halal'] },
       { name: 'SQL', projects: ['clipnest'] },
+      { name: 'SQLite', projects: ['clipnest'] },
       { name: 'C#', projects: ['clipnest', 'kite', 'islandbar'] },
       { name: '.NET', projects: ['clipnest', 'kite', 'islandbar'] },
       { name: 'Flutter', projects: ['yes-halal'] },

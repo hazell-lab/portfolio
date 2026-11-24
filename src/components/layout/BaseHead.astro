@@ -1,6 +1,7 @@
 ---
 // everything inside <head>: meta tags, social previews, fonts and the theme script.
 import serifFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
+import { goatCounter, GOATCOUNTER_SCRIPT } from '@/lib/analytics.mjs';
 import textFont from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
 
 interface Props {
@@ -27,6 +28,8 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site);
+// null unless GOATCOUNTER_CODE is set at build time
+const analytics = goatCounter(process.env.GOATCOUNTER_CODE);
 ---
 
 <meta charset="UTF-8" />
@@ -85,3 +88,6 @@ const imageUrl = new URL(image, Astro.site);
 </script>
 
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+{/* page view counting with goatcounter: no cookies and no personal data. off unless GOATCOUNTER_CODE is set */}
+{analytics && <script is:inline async data-goatcounter={analytics.endpoint} src={GOATCOUNTER_SCRIPT}></script>}

@@ -93,7 +93,7 @@ portfolio/
 │   ├── data/                  site.ts, profile.ts, projects.ts
 │   ├── hooks/                 useTheme, useQueryParam, useProjectFilter, useGitHubRepo, useContactForm, ...
 │   ├── layouts/               BaseLayout.astro
-│   ├── lib/                   images.ts, inline.ts, projects.ts, theme.ts, validation.ts
+│   ├── lib/                   analytics.mjs, images.ts, inline.ts, projects.ts, theme.ts, validation.ts
 │   ├── pages/                 index, projects/[slug], 404, robots.txt
 │   ├── scripts/               vanilla modules (menu, scroll, reveal, clock), started by main.ts
 │   ├── services/              http.ts, github.ts, contact.ts
@@ -145,8 +145,11 @@ The dev server runs at http://localhost:4321.
 | Name | Needed | Default | Used for |
 |---|---|---|---|
 | `SITE_URL` | no | `https://hazimaqil-portfolio.netlify.app` | canonical links, the sitemap, robots.txt, link previews and structured data |
+| `GOATCOUNTER_CODE` | no | not set, so nothing is counted | page view counts with [GoatCounter](https://www.goatcounter.com): the `name` in `name.goatcounter.com` |
 
 Copy `.env.example` to `.env` to change it locally. On Netlify, set it under **Site configuration → Environment variables**, for example when the site moves to its own domain. The site needs no secret keys: Netlify Forms needs none, and the GitHub panel uses the public API without a token, so no token is ever shipped to the browser.
+
+**Page view counts:** when `GOATCOUNTER_CODE` is set, every page loads GoatCounter's script from `gc.zgo.at`, and the Content Security Policy allows that script and the counter's own address. GoatCounter sets no cookies, so the site still has no cookie banner. Set the code only on Netlify, so local builds and tests are never counted. The code is checked by `src/lib/analytics.mjs`, and anything that is not a valid code turns counting off.
 
 ## Testing
 
@@ -162,7 +165,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-- **Unit tests** (`tests/unit/*.test.ts`, Node): the helpers, contact rules, theme rules, html escaping, the contact reducer, the GitHub service (URL parsing, answer validation, caching, each error status) and `fetchWithTimeout` (time limit and caller abort, with fake timers). There are also checks on the real data: unique slugs, https links, alt text, and skill links that point at real projects.
+- **Unit tests** (`tests/unit/*.test.ts`, Node): the helpers, contact rules, theme rules, html escaping, the contact reducer, the GoatCounter code check, the GitHub service (URL parsing, answer validation, caching, each error status) and `fetchWithTimeout` (time limit and caller abort, with fake timers). There are also checks on the real data: unique slugs, https links, alt text, and skill links that point at real projects.
 - **Component and hook tests** (`tests/unit/components/*.test.tsx`, jsdom with React Testing Library):
   - `ThemeToggle`: label, saving, following outside changes.
   - `ProjectExplorer`: counts, filtering, the URL, the live message, unknown filters.
@@ -182,11 +185,11 @@ npm run test:e2e
 - The contact tests answer the form's request themselves (status 200, then status 500). Real delivery through Netlify Forms can only be checked on the deployed site.
 - To use an installed browser instead of downloading Chromium, set `PW_CHANNEL=msedge` or `PW_CHANNEL=chrome`.
 
-Results on 16 November 2026: 88 unit and component tests passed; 94 end to end tests passed and 4 were skipped (tests that only apply to the other screen size); `astro check` reported 0 errors; ESLint reported 0 problems.
+Results on 24 November 2026: 93 unit and component tests passed; 94 end to end tests passed and 4 were skipped (tests that only apply to the other screen size); `astro check` reported 0 errors; ESLint reported 0 problems.
 
 ### Lighthouse
 
-These are local results, measured on 16 November 2026 with Lighthouse 13.6 in headless Edge against `npm run preview`. The live site can score differently.
+Local results, measured on 16 November 2026 with Lighthouse 13.6 in headless Edge against `npm run preview`:
 
 | Page | Device | Performance | Accessibility | Best practices | SEO | LCP | TBT | CLS |
 |---|---|---|---|---|---|---|---|---|
@@ -195,27 +198,38 @@ These are local results, measured on 16 November 2026 with Lighthouse 13.6 in he
 | Streamix case study | Mobile | 100 | 100 | 100 | 100 | 0.8 s | 70 ms | 0.001 |
 | Streamix case study | Desktop | 100 | 100 | 100 | 100 | 0.2 s | 0 ms | 0.001 |
 
+Live results, measured on 24 November 2026 with Lighthouse 13.6 in headless Edge against https://hazimaqil-portfolio.netlify.app (one run each, so expect some variation between runs):
+
+| Page | Device | Performance | Accessibility | Best practices | SEO | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|---|
+| Home | Mobile | 87 | 100 | 92 | 100 | 1.7 s | 460 ms | 0 |
+| Home | Desktop | 99 | 100 | 92 | 100 | 0.6 s | 0 ms | 0.005 |
+| Streamix case study | Mobile | 100 | 100 | 92 | 100 | 1.3 s | 0 ms | 0 |
+| Streamix case study | Desktop | 98 | 100 | 92 | 100 | 0.5 s | 0 ms | 0.002 |
+
+Best practices is 92 on every live page because Netlify adds its own badge script (`/.netlify/scripts/hud`) to published sites, and the Content Security Policy blocks the inline code it tries to run, which logs console errors. The site's own code logs none. On the home page on mobile, the first response from the server took 820 ms in that run.
+
 ## Build and deploy
 
 The Netlify setup is split so it works for both kinds of deploy:
 
 - **`netlify.toml`:** build settings (`npm run build`, publish `dist`, Node 22). Netlify only reads it when it builds from the Git repository.
 - **`public/_redirects`:** the old `/projects/<name>.html` and `/index.html` addresses go permanently to the new clean ones.
-- **`public/_headers`:** `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` on every page, and long caching for the hashed files in `/_astro/`. Astro adds a Content Security Policy with hashes for its inline scripts to every page; `connect-src` allows only this site and `api.github.com`.
+- **`public/_headers`:** `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` on every page, and long caching for the hashed files in `/_astro/`. Astro adds a Content Security Policy with hashes for its inline scripts to every page; `connect-src` allows only this site and `api.github.com`, plus the GoatCounter address when counting is on.
 - **Forms:** the visible form is a React island, so `Contact.astro` also renders a hidden copy with the same name and fields (`data-netlify="true"`) for Netlify to detect at deploy time. Form detection must be on under **Forms** in the Netlify dashboard. Messages appear there, and email alerts are set under **Site configuration → Notifications → Form submission notifications**.
 - **404:** `dist/404.html` is served for any unknown address.
 
 Everything in `public/` is copied into `dist/`, so the redirects and headers apply however the site is deployed.
 
-**Drag and drop (how this site is deployed):**
+**From Git (how this site is deployed):** the repository is connected in Netlify, so every push to `main` builds with the settings in `netlify.toml` and goes live.
+
+**Drag and drop:**
 
 ```bash
 npm run build
 ```
 
 Then drop the `dist` folder (not the project folder) onto **Deploys** in the Netlify dashboard.
-
-**From Git:** connect the repository in Netlify, and it builds with the settings in `netlify.toml`.
 
 ## Projects featured
 
