@@ -66,10 +66,10 @@ export const skillGroups: SkillGroup[] = [
       { name: 'React Testing Library', projects: ['streamix', 'hazstore'], here: true },
       { name: 'Unit Testing', projects: ['streamix', 'clipnest', 'kite'], here: true },
       { name: 'Component Testing', projects: ['streamix', 'hazstore'], here: true },
-      { name: 'Playwright', projects: ['hazfocus'], here: true },
-      { name: 'ESLint', projects: ['streamix'], here: true },
+      { name: 'Playwright', projects: ['hazfocus', 'hazstore'], here: true },
+      { name: 'ESLint', projects: ['streamix', 'hazstore'], here: true },
       { name: 'Accessibility', projects: ['streamix', 'hazstore', 'hazfocus'], here: true },
-      { name: 'Performance Optimization', projects: ['streamix'], here: true },
+      { name: 'Performance Optimization', projects: ['streamix', 'hazstore'], here: true },
     ],
   },
   {
